@@ -5,18 +5,20 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 
 public class UDPHandler implements Runnable
 {
     private String mHostIP;
     private int mSendPort;
     private int mReceivePort;
-    private int mBufferSize = 8;
+    private int mHeaderSize = 4;
+    private int mBufferSize = 1024;
     private byte[] mBuffer = new byte[mBufferSize];
     private String mMessage = "";
 
     private DatagramSocket mServerSocket;
-    private DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
+    private DatagramPacket mPacket;
     private DatagramSocket mSendingSocket;
 
     private Thread mThread = new Thread(this);
@@ -47,8 +49,11 @@ public class UDPHandler implements Runnable
         {
             try
             {
+                mPacket = new DatagramPacket(mBuffer, mBufferSize);
                 mServerSocket.receive(mPacket);
-                mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
+                String message = new String(mPacket.getData(), 0, mPacket.getLength());
+                int length = Integer.parseInt(message.substring(0, mHeaderSize));
+                mMessage = message.substring(mHeaderSize, mHeaderSize + length);
             } catch (java.io.IOException e)
             {
                 System.out.println("Cannot receive message");
@@ -59,6 +64,16 @@ public class UDPHandler implements Runnable
 
     public void send(String message)
     {
+        // Fills first four bytes with message length
+        String header = "";
+        if (message.length() < 10)
+            header += "000";
+        else if (message.length() < 100)
+            header += "00";
+        else if (message.length() < 1000)
+            header += "0";
+        message = header + message.length() + message;
+
         try
         {
             mSendingSocket.send(new DatagramPacket(message.getBytes(), message.length(), InetAddress.getByName(mHostIP), mSendPort));

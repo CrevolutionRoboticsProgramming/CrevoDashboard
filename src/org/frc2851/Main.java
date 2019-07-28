@@ -28,7 +28,7 @@ public class Main extends Application
     private Font buttonFont = new Font("Roboto", 15);
 
     private TextField hostIPField = new TextField(),
-            hostPortField = new TextField(),
+            sendPortField = new TextField(),
             receivePortField = new TextField(),
             streamWidthField = new TextField(),
             streamHeightField = new TextField(),
@@ -56,9 +56,9 @@ public class Main extends Application
         Text hostIPText = new Text("Host IP");
         hostIPText.setFont(textFont);
         root.add(hostIPText, 1, 0);
-        Text hostPortText = new Text("Host Port");
-        hostPortText.setFont(textFont);
-        root.add(hostPortText, 1, 3);
+        Text sendPortText = new Text("Send Port");
+        sendPortText.setFont(textFont);
+        root.add(sendPortText, 1, 3);
         Text receivePortText = new Text("Receive Port");
         receivePortText.setFont(textFont);
         root.add(receivePortText, 1, 6);
@@ -92,8 +92,8 @@ public class Main extends Application
 
         hostIPField.setFont(textFieldFont);
         root.add(hostIPField, 1, 1);
-        hostPortField.setFont(textFieldFont);
-        root.add(hostPortField, 1, 4);
+        sendPortField.setFont(textFieldFont);
+        root.add(sendPortField, 1, 4);
         receivePortField.setFont(textFieldFont);
         root.add(receivePortField, 1, 7);
         streamWidthField.setFont(textFieldFont);
@@ -179,7 +179,7 @@ public class Main extends Application
                     hostIPField.setText(value);
                     break;
                 case "host-port":
-                    hostPortField.setText(value);
+                    sendPortField.setText(value);
                     break;
                 case "receive-port":
                     receivePortField.setText(value);
@@ -289,9 +289,9 @@ public class Main extends Application
 
         });
 
+        UDPHandler udpHandler = new UDPHandler(hostIPField.getText(), Integer.parseInt(sendPortField.getText()), Integer.parseInt(receivePortField.getText()));
         transmitData.setOnAction((ActionEvent e) ->
         {
-            UDPHandler udpHandler = new UDPHandler(hostIPField.getText(), Integer.parseInt(hostPortField.getText()), Integer.parseInt(receivePortField.getText()));
             udpHandler.send(getProfile());
             try
             {
@@ -303,6 +303,7 @@ public class Main extends Application
             if (udpHandler.getMessage().equals("received"))
             {
                 System.out.println("Target received message");
+                udpHandler.clearMessage();
             }
             else
             {
@@ -340,7 +341,7 @@ public class Main extends Application
     {
         StringBuilder builder = new StringBuilder();
         builder.append("host-ip:").append(hostIPField.getText())
-                .append(";host-port:").append(hostPortField.getText())
+                .append(";host-port:").append(sendPortField.getText())
                 .append(";receive-port:").append(receivePortField.getText())
                 .append(";stream-width:").append(streamWidthField.getText())
                 .append(";stream-height:").append(streamHeightField.getText())

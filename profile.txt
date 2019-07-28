@@ -1,1 +1,1 @@
-host-ip:10.28.51.18;host-port:1183;receive-port:1182;stream-width:320;stream-height:240;stream-fps:15;low-hue:0;low-saturation:0;low-value:0;high-hue:255;high-saturation:255;high-value:180
+host-ip:10.42.0.227;host-port:1183;receive-port:1182;stream-width:320;stream-height:240;stream-fps:15;low-hue:0;low-saturation:0;low-value:0;high-hue:255;high-saturation:255;high-value:180
