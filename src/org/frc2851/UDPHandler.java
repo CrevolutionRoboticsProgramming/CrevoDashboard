@@ -62,7 +62,8 @@ public class UDPHandler implements Runnable
         }
     }
 
-    public void send(String message)
+    // Timeout is expressed in milliseconds; if 0, no timeout
+    public void send(String message, int timeout)
     {
         // Fills first four bytes with message length
         String header = "";
@@ -81,6 +82,25 @@ public class UDPHandler implements Runnable
         {
             System.out.println("Failed to send message");
             e.printStackTrace();
+        }
+
+        if (timeout > 0)
+        {
+            try
+            {
+                Thread.sleep(timeout);
+            } catch (InterruptedException ex)
+            {
+                ex.printStackTrace();
+            }
+            if (getMessage().equals("received"))
+            {
+                System.out.println("Target received message");
+                clearMessage();
+            } else
+            {
+                System.out.println("Timed out waiting for target to send confirmation of reception");
+            }
         }
     }
 
