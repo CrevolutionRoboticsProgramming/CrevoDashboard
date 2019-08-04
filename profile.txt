@@ -1,1 +1,1 @@
-host-ip:10.42.0.227;send-port:1183;receive-port:1182;low-hue:0.0;low-saturation:0;low-value:0;high-hue:255.0;high-saturation:255;high-value:255
+host-ip:10.42.0.227;send-port:1184;receive-port:1182;low-hue:117;low-saturation:0;low-value:85;high-hue:187;high-saturation:130;high-value:180

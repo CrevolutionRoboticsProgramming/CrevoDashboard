@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
 
 public class UDPHandler implements Runnable
 {
@@ -86,18 +85,20 @@ public class UDPHandler implements Runnable
 
         if (timeout > 0)
         {
-            try
+            long begin = System.currentTimeMillis();
+            boolean received = false;
+
+            while (System.currentTimeMillis() - begin < timeout)
             {
-                Thread.sleep(timeout);
-            } catch (InterruptedException ex)
-            {
-                ex.printStackTrace();
+                if (getMessage().equals("received"))
+                {
+                    received = true;
+                    clearMessage();
+                    break;
+                }
             }
-            if (getMessage().equals("received"))
-            {
-                System.out.println("Target received message");
-                clearMessage();
-            } else
+
+            if (!received)
             {
                 System.out.println("Timed out waiting for target to send confirmation of reception");
             }
