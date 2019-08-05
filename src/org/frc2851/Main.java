@@ -80,7 +80,7 @@ public class Main extends Application
                 textField.setId(title);
                 textField.setFont(textFieldFont);
 
-                if (textField.getText().contains("Low") || textField.getText().contains("High"))
+                if (title.contains("Low") || title.contains("High"))
                 {
                     String settingTitle = hsvSettingTitles.get(i - 3);
                     textField.setOnKeyTyped(e ->
@@ -196,9 +196,9 @@ public class Main extends Application
         toggleStream.setOnAction(e ->
                 udpHandler.send("switch camera", timeout));
         restartProgramButton.setOnAction(e ->
-                udpHandler.send("restart program", timeout));
+                udpHandler.send("restart program", 0));
         rebootButton.setOnAction(e ->
-                udpHandler.send("reboot", timeout));
+                udpHandler.send("reboot", 0));
 
         final Timeline udpUpdater = new Timeline(
                 new KeyFrame(Duration.ZERO, event ->
