@@ -11,7 +11,6 @@ public class UDPHandler implements Runnable
     private String mHostIP;
     private int mSendPort;
     private int mReceivePort;
-    private int mHeaderSize = 4;
     private int mBufferSize = 1024;
     private byte[] mBuffer = new byte[mBufferSize];
     private String mMessage = "";
@@ -50,9 +49,7 @@ public class UDPHandler implements Runnable
             {
                 mPacket = new DatagramPacket(mBuffer, mBufferSize);
                 mServerSocket.receive(mPacket);
-                String message = new String(mPacket.getData(), 0, mPacket.getLength());
-                int length = Integer.parseInt(message.substring(0, mHeaderSize));
-                mMessage = message.substring(mHeaderSize, mHeaderSize + length);
+                mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
             } catch (java.io.IOException e)
             {
                 System.out.println("Cannot receive message");
@@ -64,16 +61,6 @@ public class UDPHandler implements Runnable
     // Timeout is expressed in milliseconds; if 0, no timeout
     public void send(String message, int timeout)
     {
-        // Fills first four bytes with message length
-        String header = "";
-        if (message.length() < 10)
-            header += "000";
-        else if (message.length() < 100)
-            header += "00";
-        else if (message.length() < 1000)
-            header += "0";
-        message = header + message.length() + message;
-
         try
         {
             mSendingSocket.send(new DatagramPacket(message.getBytes(), message.length(), InetAddress.getByName(mHostIP), mSendPort));
