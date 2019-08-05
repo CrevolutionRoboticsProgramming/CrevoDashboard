@@ -14,7 +14,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -24,15 +25,13 @@ public class Main extends Application
     private Font textFieldFont = new Font("Courier New", 15);
     private Font buttonFont = new Font("Roboto", 15);
 
-    private Button transmitData = new Button("                                   Transmit Data                                   "),
-            toggleStream = new Button("                                   Toggle Stream                                  "),
-            updateValues = new Button("                                   Update Values                                   "),
-            rebootButton = new Button("                                        Reboot                                         ");
+    private Button transmitData = new Button("                                   Transmit Data                                 "),
+            toggleStream = new Button("                                   Toggle Stream                                "),
+            updateValues = new Button("                                   Update Values                                 "),
+            restartProgramButton = new Button("                                  Restart Program                              "),
+            rebootButton = new Button("                                        Reboot                                        ");
 
     private LinkedHashMap<String, LinkedHashMap<String, String>> categories = new LinkedHashMap<>();
-
-    private ArrayList<Tab> tabs = new ArrayList<>();
-    private ArrayList<GridPane> panes = new ArrayList<>();
 
     private TabPane root = new TabPane();
 
@@ -112,20 +111,13 @@ public class Main extends Application
             Slider slider = new Slider();
             slider.setId(title);
             slider.setMin(0);
-            if (!title.contains("Value"))
-            {
-                slider.setMax(255);
-                slider.setMajorTickUnit(85);
-            } else
-            {
-                slider.setMax(180);
-                slider.setMajorTickUnit(60);
-            }
+            slider.setMax(255);
+            slider.setMajorTickUnit(85);
             slider.setShowTickLabels(true);
             slider.setOnMouseReleased(e ->
                     sliderUpdateHelper(Objects.requireNonNull(getSliderWithName(generalPane, title)), Objects.requireNonNull(getFieldWithName(generalPane, title)), settingTitle));
 
-            generalPane.add(slider, GridPane.getColumnIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))) + 1, GridPane.getRowIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))), 16, 1);
+            generalPane.add(slider, GridPane.getColumnIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))) + 1, GridPane.getRowIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))), 14, 1);
         }
 
         generalTab.setContent(generalPane);
@@ -192,8 +184,10 @@ public class Main extends Application
         generalPane.add(updateValues, 0, 27, 15, 1);
         toggleStream.setFont(buttonFont);
         generalPane.add(toggleStream, 0, 28, 15, 1);
+        restartProgramButton.setFont(buttonFont);
+        generalPane.add(restartProgramButton, 0, 29, 15, 1);
         rebootButton.setFont(buttonFont);
-        generalPane.add(rebootButton, 0, 29, 15, 1);
+        generalPane.add(rebootButton, 0, 30, 15, 1);
 
         transmitData.setOnAction(e ->
                 udpHandler.send(getSendProfile(), timeout));
@@ -201,6 +195,8 @@ public class Main extends Application
                 udpHandler.send("get config", timeout));
         toggleStream.setOnAction(e ->
                 udpHandler.send("switch camera", timeout));
+        restartProgramButton.setOnAction(e ->
+                udpHandler.send("restart program", timeout));
         rebootButton.setOnAction(e ->
                 udpHandler.send("reboot", timeout));
 
@@ -316,7 +312,7 @@ public class Main extends Application
                                 }
 
                                 ++rowCounter;
-                                if (rowCounter > 8)
+                                if (rowCounter > 7)
                                 {
                                     rowCounter = 0;
                                     ++columnCounter;
@@ -332,9 +328,12 @@ public class Main extends Application
                             Button toggleStream = new Button(this.toggleStream.getText());
                             toggleStream.setFont(buttonFont);
                             generalPane.add(toggleStream, 0, 23, 15, 1);
+                            Button restartProgramButton = new Button(this.restartProgramButton.getText());
+                            restartProgramButton.setFont(buttonFont);
+                            generalPane.add(restartProgramButton, 0, 24, 15, 1);
                             Button rebootButton = new Button(this.rebootButton.getText());
                             rebootButton.setFont(buttonFont);
-                            generalPane.add(rebootButton, 0, 24, 15, 1);
+                            generalPane.add(rebootButton, 0, 25, 15, 1);
 
                             transmitData.setOnAction(e ->
                                     udpHandler.send(getSendProfile(), timeout));
@@ -342,13 +341,16 @@ public class Main extends Application
                                     udpHandler.send("get config", timeout));
                             toggleStream.setOnAction(e ->
                                     udpHandler.send("switch camera", timeout));
+                            restartProgramButton.setOnAction(e ->
+                                    udpHandler.send("restart program", timeout));
                             rebootButton.setOnAction(e ->
                                     udpHandler.send("reboot", timeout));
 
                             gridPane.add(transmitData, 0, 26, 15, 1);
                             gridPane.add(updateValues, 0, 27, 15, 1);
                             gridPane.add(toggleStream, 0, 28, 15, 1);
-                            gridPane.add(rebootButton, 0, 29, 15, 1);
+                            gridPane.add(restartProgramButton, 0, 29, 15, 1);
+                            gridPane.add(rebootButton, 0, 30, 15, 1);
 
                             tab.setContent(gridPane);
                             tab.setClosable(false);
@@ -391,7 +393,7 @@ public class Main extends Application
         });
 
         stage.setTitle("Vision Communicator");
-        stage.setScene(new Scene(root, 485, 750));
+        stage.setScene(new Scene(root, 485, 810));
         stage.show();
 
         udpUpdater.play();
