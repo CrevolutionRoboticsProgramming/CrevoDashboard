@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Add UDP communications interface">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/profile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/profile.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/frc2851/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/frc2851/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Add a button to restart the program" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,41 +71,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="953" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
   <component name="ProjectId" id="1OYV4Ame4pssmyMPA0cEas7Xvqj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="VisionCommunicator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VisionCommunicator" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VisionCommunicator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VisionCommunicator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VisionCommunicator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="VisionCommunicator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frc2851" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToClass.includeLibraries" value="false" />
@@ -163,7 +133,7 @@
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.frc2851.Main" />
       <module name="VisionCommunicator" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$/javafx-sdk-11.0.2-linux/lib&quot; --add-modules javafx.base,javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;$PROJECT_DIR$/javafx-sdk-11.0.2/lib&quot; --add-modules javafx.base,javafx.controls,javafx.fxml,javafx.web,javafx.graphics,javafx.media" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="sample.*" />
@@ -240,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564672205343</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add a button to restart the program">
+      <created>1564966274941</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1564966274941</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -278,7 +255,8 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Add length header to UDP packets" />
     <MESSAGE value="Add UDP communications interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add UDP communications interface" />
+    <MESSAGE value="Add a button to restart the program" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a button to restart the program" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
