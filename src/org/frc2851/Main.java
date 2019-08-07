@@ -63,7 +63,7 @@ public class Main extends Application
         );
 
         Tab generalTab = new Tab();
-        generalTab.setText("General");
+        generalTab.setText("GENERAL");
 
         {
             int rowCounter = 0;
