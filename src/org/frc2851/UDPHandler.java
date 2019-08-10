@@ -16,10 +16,7 @@ public class UDPHandler implements Runnable
     private String mMessage = "";
 
     private DatagramSocket mServerSocket;
-    private DatagramPacket mPacket;
     private DatagramSocket mSendingSocket;
-
-    private Thread mThread = new Thread(this);
 
     public UDPHandler(String hostIP, int sendPort, int receivePort)
     {
@@ -37,6 +34,7 @@ public class UDPHandler implements Runnable
             e.printStackTrace();
         }
 
+        Thread mThread = new Thread(this);
         mThread.start();
     }
 
@@ -47,7 +45,7 @@ public class UDPHandler implements Runnable
         {
             try
             {
-                mPacket = new DatagramPacket(mBuffer, mBufferSize);
+                DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
                 mServerSocket.receive(mPacket);
                 mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
             } catch (java.io.IOException e)

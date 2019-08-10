@@ -89,7 +89,7 @@ public class Main extends Application
                 generalPane.add(textField, columnCounter + 1, rowCounter * 2 + 1);
 
                 ++rowCounter;
-                if (rowCounter > generalPane.getRowCount())
+                if (rowCounter > 12)
                 {
                     rowCounter = 0;
                     ++columnCounter;
@@ -370,7 +370,7 @@ public class Main extends Application
         {
             try
             {
-                PrintWriter writer = new PrintWriter("profile.txt", StandardCharsets.UTF_8);
+                PrintWriter writer = new PrintWriter("profile.txt");
 
                 String outProfile = "host-ip:" + Objects.requireNonNull(getFieldWithName(generalPane, "Host IP")).getText() +
                         ";send-port:" + Objects.requireNonNull(getFieldWithName(generalPane, "Send Port")).getText() +
