@@ -1,6 +1,6 @@
-# Vision-Communicator
+# VisionCommunicator
 
-### Crevolution's JavaFX UDP communication GUI for interfacing with our [Offseason-Vision-2019](https://github.com/CrevolutionRoboticsProgramming/Offseason-Vision-2019) vision processing program
+### Crevolution's JavaFX UDP communication GUI for interfacing with our [OffseasonVision2019](https://github.com/CrevolutionRoboticsProgramming/OffseasonVision2019) vision processing program
 
 ## Usage
 
