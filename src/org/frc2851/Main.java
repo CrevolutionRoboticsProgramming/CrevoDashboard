@@ -3,10 +3,13 @@ package org.frc2851;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,10 +17,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 
 public class Main extends Application
 {
@@ -25,106 +30,77 @@ public class Main extends Application
     private Font textFieldFont = new Font("Courier New", 15);
     private Font buttonFont = new Font("Roboto", 15);
 
-    private Button transmitData = new Button("                                   Transmit Data                                 "),
-            toggleStream = new Button("                                   Toggle Stream                                "),
-            updateValues = new Button("                                   Update Values                                 "),
-            restartProgramButton = new Button("                                  Restart Program                              "),
-            rebootButton = new Button("                                        Reboot                                        ");
-
     private LinkedHashMap<String, LinkedHashMap<String, String>> categories = new LinkedHashMap<>();
-
-    private TabPane root = new TabPane();
 
     private UDPHandler udpHandler;
     private int timeout = 1000;
+
+    @FXML
+    private TabPane root;
+    @FXML
+    private TextField hostIPField;
+    @FXML
+    private TextField sendPortField;
+    @FXML
+    private TextField receivePortField;
+    @FXML
+    private TextField lowHueField;
+    @FXML
+    private TextField highHueField;
+    @FXML
+    private TextField lowSaturationField;
+    @FXML
+    private TextField highSaturationField;
+    @FXML
+    private TextField lowValueField;
+    @FXML
+    private TextField highValueField;
+    @FXML
+    private Slider lowHueSlider;
+    @FXML
+    private Slider highHueSlider;
+    @FXML
+    private Slider lowSaturationSlider;
+    @FXML
+    private Slider highSaturationSlider;
+    @FXML
+    private Slider lowValueSlider;
+    @FXML
+    private Slider highValueSlider;
 
     public static void main(String[] args)
     {
         launch(args);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception
+    @FXML
+    private void initialize()
     {
-        GridPane generalPane = new GridPane();
-        generalPane.setHgap(10);
-        generalPane.setVgap(5);
-        generalPane.setPadding(new Insets(10, 10, 0, 10));
+        ((SplitPane) root.getTabs().get(0).getContent()).getItems().add(getButtons());
 
-        ArrayList<String> generalTitles = new ArrayList<>(
-                Arrays.asList("Host IP", "Send Port", "Receive Port", "Low Hue",
-                        "High Hue", "Low Saturation", "High Saturation", "Low Value",
-                        "High Value"));
-        ArrayList<String> hsvSettingTitles = new ArrayList<>(
-                Arrays.asList(
-                        "low-hue", "high-hue", "low-saturation", "high-saturation",
-                        "low-value", "high-value"
-                )
-        );
+        lowHueField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "low-hue"));
+        highHueField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "high-hue"));
+        lowSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "low-saturation"));
+        highSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "high-saturation"));
+        lowValueField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "low-value"));
+        highValueField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "high-value"));
 
-        Tab generalTab = new Tab();
-        generalTab.setText("GENERAL");
+        lowHueSlider.setOnMouseReleased(e -> sliderUpdateHelper(lowHueSlider, lowHueField, "low-hue"));
+        highHueSlider.setOnMouseReleased(e -> sliderUpdateHelper(highHueSlider, highHueField, "high-hue"));
+        lowSaturationSlider.setOnMouseReleased(e -> sliderUpdateHelper(lowSaturationSlider, lowSaturationField, "low-saturation"));
+        highSaturationSlider.setOnMouseReleased(e -> sliderUpdateHelper(highSaturationSlider, highSaturationField, "high-saturation"));
+        lowValueSlider.setOnMouseReleased(e -> sliderUpdateHelper(lowValueSlider, lowValueField, "low-value"));
+        highValueSlider.setOnMouseReleased(e -> sliderUpdateHelper(highValueSlider, highValueField, "high-value"));
 
+        Scanner in = null;
+        try
         {
-            int rowCounter = 0;
-            int columnCounter = 0;
-            for (int i = 0; i < generalTitles.size(); ++i)
-            {
-                String title = generalTitles.get(i);
-
-                Text text = new Text(title);
-                text.setFont(textFont);
-                generalPane.add(text, columnCounter + 1, rowCounter * 2);
-
-                TextField textField = new TextField();
-                textField.setId(title);
-                textField.setFont(textFieldFont);
-
-                if (title.contains("Low") || title.contains("High"))
-                {
-                    String settingTitle = hsvSettingTitles.get(i - 3);
-                    textField.setOnKeyTyped(e ->
-                            fieldUpdateHelper(Objects.requireNonNull(getFieldWithName(generalPane, title)), getSliderWithName(generalPane, title), settingTitle));
-                }
-                generalPane.add(textField, columnCounter + 1, rowCounter * 2 + 1);
-
-                ++rowCounter;
-                if (rowCounter > 12)
-                {
-                    rowCounter = 0;
-                    ++columnCounter;
-                }
-            }
-        }
-
-        ArrayList<String> hsvTitles = new ArrayList<>(
-                Arrays.asList(
-                        "Low Hue", "High Hue", "Low Saturation", "High Saturation",
-                        "Low Value", "High Value"
-                )
-        );
-
-        for (int i = 0; i < hsvTitles.size(); ++i)
+            in = new Scanner(new FileReader("profile.txt"));
+        } catch (FileNotFoundException e)
         {
-            String title = hsvTitles.get(i);
-            String settingTitle = hsvSettingTitles.get(i);
-            Slider slider = new Slider();
-            slider.setId(title);
-            slider.setMin(0);
-            slider.setMax(255);
-            slider.setMajorTickUnit(85);
-            slider.setShowTickLabels(true);
-            slider.setOnMouseReleased(e ->
-                    sliderUpdateHelper(Objects.requireNonNull(getSliderWithName(generalPane, title)), Objects.requireNonNull(getFieldWithName(generalPane, title)), settingTitle));
-
-            generalPane.add(slider, GridPane.getColumnIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))) + 1, GridPane.getRowIndex(Objects.requireNonNull(getFieldWithName(generalPane, title))), 14, 1);
+            e.printStackTrace();
+            System.exit(-1);
         }
-
-        generalTab.setContent(generalPane);
-        generalTab.setClosable(false);
-        root.getTabs().add(generalTab);
-
-        Scanner in = new Scanner(new FileReader("profile.txt"));
         StringBuilder inBuilder = new StringBuilder();
         while (in.hasNext())
         {
@@ -134,72 +110,51 @@ public class Main extends Application
         String profile = inBuilder.toString();
         for (String settingPair : profile.split(";"))
         {
-            if (settingPair.split(":").length == 1)
+            if (settingPair.split("=").length == 1)
                 continue;
-            String name = settingPair.split(":")[0];
-            String value = settingPair.split(":")[1];
+            String name = settingPair.split("=")[0];
+            String value = settingPair.split("=")[1];
             switch (name)
             {
                 case "host-ip":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Host IP")).setText(value);
+                    hostIPField.setText(value);
                     break;
                 case "send-port":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Send Port")).setText(value);
+                    sendPortField.setText(value);
                     break;
                 case "receive-port":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Receive Port")).setText(value);
+                    receivePortField.setText(value);
                     break;
                 case "low-hue":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Low Hue")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "Low Hue")).setValue(Double.parseDouble(value));
+                    lowHueField.setText(value);
+                    lowHueSlider.setValue(Double.parseDouble(value));
                     break;
                 case "low-saturation":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Low Saturation")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "Low Saturation")).setValue(Double.parseDouble(value));
+                    lowSaturationField.setText(value);
+                    lowSaturationSlider.setValue(Double.parseDouble(value));
                     break;
                 case "low-value":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "Low Value")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "Low Value")).setValue(Double.parseDouble(value));
+                    lowValueField.setText(value);
+                    lowValueSlider.setValue(Double.parseDouble(value));
                     break;
                 case "high-hue":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "High Hue")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "High Hue")).setValue(Double.parseDouble(value));
+                    highHueField.setText(value);
+                    highHueSlider.setValue(Double.parseDouble(value));
                     break;
                 case "high-saturation":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "High Saturation")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "High Saturation")).setValue(Double.parseDouble(value));
+                    highSaturationField.setText(value);
+                    highSaturationSlider.setValue(Double.parseDouble(value));
                     break;
                 case "high-value":
-                    Objects.requireNonNull(getFieldWithName(generalPane, "High Value")).setText(value);
-                    Objects.requireNonNull(getSliderWithName(generalPane, "High Value")).setValue(Double.parseDouble(value));
+                    highValueField.setText(value);
+                    highValueSlider.setValue(Double.parseDouble(value));
                     break;
             }
         }
 
-        udpHandler = new UDPHandler(Objects.requireNonNull(getFieldWithName(generalPane, "Host IP")).getText(), Integer.parseInt(Objects.requireNonNull(getFieldWithName(generalPane, "Send Port")).getText()), Integer.parseInt(Objects.requireNonNull(getFieldWithName(generalPane, "Receive Port")).getText()));
+        udpHandler = new UDPHandler(hostIPField.getText(), Integer.parseInt(sendPortField.getText()), Integer.parseInt(receivePortField.getText()));
 
-        transmitData.setFont(buttonFont);
-        generalPane.add(transmitData, 0, 26, 15, 1);
-        updateValues.setFont(buttonFont);
-        generalPane.add(updateValues, 0, 27, 15, 1);
-        toggleStream.setFont(buttonFont);
-        generalPane.add(toggleStream, 0, 28, 15, 1);
-        restartProgramButton.setFont(buttonFont);
-        generalPane.add(restartProgramButton, 0, 29, 15, 1);
-        rebootButton.setFont(buttonFont);
-        generalPane.add(rebootButton, 0, 30, 15, 1);
-
-        transmitData.setOnAction(e ->
-                udpHandler.send(getSendProfile(), timeout));
-        updateValues.setOnAction(e ->
-                udpHandler.send("get config", timeout));
-        toggleStream.setOnAction(e ->
-                udpHandler.send("switch camera", timeout));
-        restartProgramButton.setOnAction(e ->
-                udpHandler.send("restart program", 0));
-        rebootButton.setOnAction(e ->
-                udpHandler.send("reboot", 0));
-
+        TabPane finalRoot = root;
         final Timeline udpUpdater = new Timeline(
                 new KeyFrame(Duration.ZERO, event ->
                 {
@@ -214,6 +169,7 @@ public class Main extends Application
                         String message = udpHandler.getMessage().substring(udpHandler.getMessage().indexOf(configLabel) + configLabel.length());
                         String[] lines = message.split("\n");
 
+                        Tab generalTab = root.getTabs().get(0);
                         root.getTabs().clear();
                         root.getTabs().add(generalTab);
 
@@ -247,7 +203,7 @@ public class Main extends Application
                             GridPane gridPane = new GridPane();
                             gridPane.setHgap(10);
                             gridPane.setVgap(5);
-                            gridPane.setPadding(new Insets(10, 10, 0, 10));
+                            gridPane.setPadding(new Insets(10, 10, 10, 10));
 
                             int rowCounter = 0;
                             int columnCounter = 0;
@@ -255,11 +211,11 @@ public class Main extends Application
                             {
                                 Text text = new Text(title);
                                 text.setFont(textFont);
-                                gridPane.add(text, columnCounter + 1, rowCounter * 2);
+                                gridPane.add(text, columnCounter, rowCounter * 2);
 
                                 TextField textField = new TextField(settings.get(title));
                                 textField.setFont(textFieldFont);
-                                gridPane.add(textField, columnCounter + 1, rowCounter * 2 + 1);
+                                gridPane.add(textField, columnCounter, rowCounter * 2 + 1);
 
                                 switch (title)
                                 {
@@ -267,42 +223,42 @@ public class Main extends Application
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "Low Hue")), Objects.requireNonNull(getSliderWithName(generalPane, "Low Hue")));
+                                            settingUpdateHelper(title, lowHueField, lowHueSlider);
                                         });
                                         break;
                                     case "low-saturation":
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "Low Saturation")), Objects.requireNonNull(getSliderWithName(generalPane, "Low Saturation")));
+                                            settingUpdateHelper(title, lowSaturationField, lowSaturationSlider);
                                         });
                                         break;
                                     case "low-value":
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "Low Value")), Objects.requireNonNull(getSliderWithName(generalPane, "Low Value")));
+                                            settingUpdateHelper(title, lowValueField, lowValueSlider);
                                         });
                                         break;
                                     case "high-hue":
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "High Hue")), Objects.requireNonNull(getSliderWithName(generalPane, "High Hue")));
+                                            settingUpdateHelper(title, highHueField, highHueSlider);
                                         });
                                         break;
                                     case "high-saturation":
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "High Saturation")), Objects.requireNonNull(getSliderWithName(generalPane, "High Saturation")));
+                                            settingUpdateHelper(title, highSaturationField, highSaturationSlider);
                                         });
                                         break;
                                     case "high-value":
                                         textField.setOnKeyTyped(e ->
                                         {
                                             categories.get(category).replace(title, textField.getText());
-                                            settingUpdateHelper(title, Objects.requireNonNull(getFieldWithName(generalPane, "High Value")), Objects.requireNonNull(getSliderWithName(generalPane, "High Value")));
+                                            settingUpdateHelper(title, highValueField, highValueSlider);
                                         });
                                         break;
                                     default:
@@ -319,42 +275,16 @@ public class Main extends Application
                                 }
                             }
 
-                            Button transmitData = new Button(this.transmitData.getText());
-                            transmitData.setFont(buttonFont);
-                            generalPane.add(transmitData, 0, 21, 15, 1);
-                            Button updateValues = new Button(this.updateValues.getText());
-                            updateValues.setFont(buttonFont);
-                            generalPane.add(updateValues, 0, 22, 15, 1);
-                            Button toggleStream = new Button(this.toggleStream.getText());
-                            toggleStream.setFont(buttonFont);
-                            generalPane.add(toggleStream, 0, 23, 15, 1);
-                            Button restartProgramButton = new Button(this.restartProgramButton.getText());
-                            restartProgramButton.setFont(buttonFont);
-                            generalPane.add(restartProgramButton, 0, 24, 15, 1);
-                            Button rebootButton = new Button(this.rebootButton.getText());
-                            rebootButton.setFont(buttonFont);
-                            generalPane.add(rebootButton, 0, 25, 15, 1);
+                            SplitPane splitPane = new SplitPane();
+                            splitPane.setDisable(true);
+                            splitPane.setOrientation(Orientation.VERTICAL);
+                            splitPane.getItems().removeAll();
+                            splitPane.getItems().add(gridPane);
+                            splitPane.getItems().add(getButtons());
 
-                            transmitData.setOnAction(e ->
-                                    udpHandler.send(getSendProfile(), timeout));
-                            updateValues.setOnAction(e ->
-                                    udpHandler.send("get config", timeout));
-                            toggleStream.setOnAction(e ->
-                                    udpHandler.send("switch camera", timeout));
-                            restartProgramButton.setOnAction(e ->
-                                    udpHandler.send("restart program", timeout));
-                            rebootButton.setOnAction(e ->
-                                    udpHandler.send("reboot", timeout));
-
-                            gridPane.add(transmitData, 0, 26, 15, 1);
-                            gridPane.add(updateValues, 0, 27, 15, 1);
-                            gridPane.add(toggleStream, 0, 28, 15, 1);
-                            gridPane.add(restartProgramButton, 0, 29, 15, 1);
-                            gridPane.add(rebootButton, 0, 30, 15, 1);
-
-                            tab.setContent(gridPane);
+                            tab.setContent(splitPane);
                             tab.setClosable(false);
-                            root.getTabs().add(tab);
+                            finalRoot.getTabs().add(tab);
 
                             categories.put(category, settings);
                         }
@@ -366,67 +296,29 @@ public class Main extends Application
         );
         udpUpdater.setCycleCount(Timeline.INDEFINITE);
 
-        stage.setOnCloseRequest(event ->
-        {
-            try
-            {
-                PrintWriter writer = new PrintWriter("profile.txt");
-
-                String outProfile = "host-ip:" + Objects.requireNonNull(getFieldWithName(generalPane, "Host IP")).getText() +
-                        ";send-port:" + Objects.requireNonNull(getFieldWithName(generalPane, "Send Port")).getText() +
-                        ";receive-port:" + Objects.requireNonNull(getFieldWithName(generalPane, "Receive Port")).getText() +
-                        ";low-hue:" + Objects.requireNonNull(getFieldWithName(generalPane, "Low Hue")).getText() +
-                        ";low-saturation:" + Objects.requireNonNull(getFieldWithName(generalPane, "Low Saturation")).getText() +
-                        ";low-value:" + Objects.requireNonNull(getFieldWithName(generalPane, "Low Value")).getText() +
-                        ";high-hue:" + Objects.requireNonNull(getFieldWithName(generalPane, "High Hue")).getText() +
-                        ";high-saturation:" + Objects.requireNonNull(getFieldWithName(generalPane, "High Saturation")).getText() +
-                        ";high-value:" + Objects.requireNonNull(getFieldWithName(generalPane, "High Value")).getText();
-
-                writer.println(outProfile);
-                writer.close();
-
-                System.exit(0);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        });
-
-        stage.setTitle("Vision Communicator");
-        stage.setScene(new Scene(root, 485, 810));
-        stage.show();
-
         udpUpdater.play();
     }
 
-    private TextField getFieldWithName(GridPane pane, String name)
+    @Override
+    public void start(Stage stage)
     {
-        for (int i = 0; i < pane.getChildren().size(); ++i)
+        stage.setOnCloseRequest(e ->
+                System.exit(0));
+
+        Scene scene = null;
+
+        try
         {
-            Node node = pane.getChildren().get(i);
-
-            if (node instanceof TextField)
-            {
-                if (node.getId().equals(name))
-                    return (TextField) node;
-            }
-        }
-        return null;
-    }
-
-    private Slider getSliderWithName(GridPane pane, String name)
-    {
-        for (int i = 0; i < pane.getChildren().size(); ++i)
+            scene = new Scene(FXMLLoader.load(getClass().getResource("VisionCommunicator.fxml")));
+        } catch (IOException e)
         {
-            Node node = pane.getChildren().get(i);
-
-            if (node instanceof Slider)
-            {
-                if (node.getId().equals(name))
-                    return (Slider) node;
-            }
+            e.printStackTrace();
+            System.exit(-1);
         }
-        return null;
+
+        stage.setTitle("Vision Communicator");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private String getSendProfile()
@@ -466,7 +358,7 @@ public class Main extends Application
             }
         }
 
-        transmitData.fire();
+        getTransmitDataButton().fire();
     }
 
     private void sliderUpdateHelper(Slider slider, TextField field, String setting)
@@ -484,7 +376,7 @@ public class Main extends Application
             }
         }
 
-        transmitData.fire();
+        getTransmitDataButton().fire();
     }
 
     private void settingUpdateHelper(String setting, TextField field, Slider slider)
@@ -506,6 +398,107 @@ public class Main extends Application
         field.setText(String.valueOf(newValue));
         slider.setValue(newValue);
 
-        transmitData.fire();
+        getTransmitDataButton().fire();
+    }
+
+    @FXML
+    private void saveSettings()
+    {
+        try
+        {
+            PrintWriter writer = new PrintWriter("profile.txt");
+
+            String outProfile = "host-ip=" + hostIPField.getText() +
+                    ";send-port=" + sendPortField.getText() +
+                    ";receive-port=" + receivePortField.getText() +
+                    ";low-hue=" + sendPortField.getText() +
+                    ";low-saturation=" + lowSaturationField.getText() +
+                    ";low-value=" + lowValueField.getText() +
+                    ";high-hue=" + highHueField.getText() +
+                    ";high-saturation=" + highSaturationField.getText() +
+                    ";high-value=" + highValueField.getText();
+
+            writer.println(outProfile);
+            writer.close();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private Button getDefaultButton(String text)
+    {
+        Button button = new Button(text);
+        button.setMnemonicParsing(false);
+        button.setPrefHeight(0);
+        button.setPrefWidth(480);
+        button.setFont(buttonFont);
+        return button;
+    }
+
+    private Button getSaveSettingsButton()
+    {
+        Button saveSettingsButton = getDefaultButton("Save Settings");
+        saveSettingsButton.setOnAction(e ->
+                saveSettings());
+        return saveSettingsButton;
+    }
+
+    private Button getTransmitDataButton()
+    {
+        Button transmitDataButton = getDefaultButton("Transmit Data");
+        transmitDataButton.setOnAction(e ->
+                udpHandler.send(getSendProfile(), timeout));
+        return transmitDataButton;
+    }
+
+    private Button getUpdateValuesButton()
+    {
+        Button updateValuesButton = getDefaultButton("Update Values");
+        updateValuesButton.setOnAction(e ->
+                udpHandler.send("get config", timeout));
+        return updateValuesButton;
+    }
+
+    private Button getToggleStreamButton()
+    {
+        Button toggleStreamButton = getDefaultButton("Toggle Stream");
+        toggleStreamButton.setOnAction(e ->
+                udpHandler.send("switch camera", timeout));
+        return toggleStreamButton;
+    }
+
+    private Button getRestartProgramButton()
+    {
+        Button restartProgramButton = getDefaultButton("Restart Program");
+        restartProgramButton.setOnAction(e ->
+                udpHandler.send("restart program", 0));
+        return restartProgramButton;
+    }
+
+    private Button getRebootButton()
+    {
+        Button rebootButton = getDefaultButton("Reboot");
+        rebootButton.setOnAction(e ->
+                udpHandler.send("reboot", 0));
+        return rebootButton;
+    }
+
+    private AnchorPane getButtons()
+    {
+        GridPane gridPane = new GridPane();
+        gridPane.add(getSaveSettingsButton(), 0, 0);
+        gridPane.add(getTransmitDataButton(), 0, 1);
+        gridPane.add(getUpdateValuesButton(), 0, 2);
+        gridPane.add(getToggleStreamButton(), 0, 3);
+        gridPane.add(getRestartProgramButton(), 0, 4);
+        gridPane.add(getRebootButton(), 0, 5);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setVgap(5);
+
+        AnchorPane anchorPane = new AnchorPane(gridPane);
+        anchorPane.setMaxSize(0, 0);
+
+        return anchorPane;
     }
 }
