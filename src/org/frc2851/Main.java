@@ -38,6 +38,8 @@ public class Main extends Application
     @FXML
     private TabPane root;
     @FXML
+    private SplitPane generalSplitPane;
+    @FXML
     private TextField hostIPField;
     @FXML
     private TextField sendPortField;
@@ -76,7 +78,10 @@ public class Main extends Application
     @FXML
     private void initialize()
     {
-        ((SplitPane) root.getTabs().get(0).getContent()).getItems().add(getButtons());
+        generalSplitPane.getItems().add(getButtons());
+
+        double oldGeneralPaneDividerPosition = generalSplitPane.getDividers().get(0).getPosition();
+        generalSplitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> generalSplitPane.getDividers().get(0).setPosition(oldGeneralPaneDividerPosition));
 
         lowHueField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "low-hue"));
         highHueField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "high-hue"));
@@ -282,6 +287,9 @@ public class Main extends Application
                             splitPane.getItems().add(gridPane);
                             splitPane.getItems().add(getButtons());
 
+                            double oldDividerPosition = splitPane.getDividers().get(0).getPosition();
+                            splitPane.getDividers().get(0).positionProperty().addListener((observable, oldValue, newValue) -> splitPane.getDividers().get(0).setPosition(oldDividerPosition));
+
                             tab.setContent(splitPane);
                             tab.setClosable(false);
                             finalRoot.getTabs().add(tab);
@@ -431,7 +439,7 @@ public class Main extends Application
         Button button = new Button(text);
         button.setMnemonicParsing(false);
         button.setPrefHeight(0);
-        button.setPrefWidth(480);
+        button.setPrefWidth(240);
         button.setFont(buttonFont);
         return button;
     }
@@ -488,12 +496,13 @@ public class Main extends Application
     {
         GridPane gridPane = new GridPane();
         gridPane.add(getSaveSettingsButton(), 0, 0);
-        gridPane.add(getTransmitDataButton(), 0, 1);
-        gridPane.add(getUpdateValuesButton(), 0, 2);
-        gridPane.add(getToggleStreamButton(), 0, 3);
-        gridPane.add(getRestartProgramButton(), 0, 4);
-        gridPane.add(getRebootButton(), 0, 5);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.add(getTransmitDataButton(), 1, 0);
+        gridPane.add(getUpdateValuesButton(), 0, 1);
+        gridPane.add(getToggleStreamButton(), 1, 1);
+        gridPane.add(getRestartProgramButton(), 0, 2);
+        gridPane.add(getRebootButton(), 1, 2);
+        gridPane.setPadding(new Insets(5, 5, 5, 5));
+        gridPane.setHgap(5);
         gridPane.setVgap(5);
 
         AnchorPane anchorPane = new AnchorPane(gridPane);
