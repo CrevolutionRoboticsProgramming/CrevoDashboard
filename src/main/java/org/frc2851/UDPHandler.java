@@ -48,7 +48,7 @@ public class UDPHandler implements Runnable
                 DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
                 mServerSocket.receive(mPacket);
                 mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
-            } catch (java.io.IOException e)
+            } catch (IOException e)
             {
                 System.out.println("Cannot receive message");
                 e.printStackTrace();

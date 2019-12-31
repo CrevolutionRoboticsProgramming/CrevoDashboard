@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VisionCommunicator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VisionCommunicator_jar</output-path>
+    <root id="archive" name="VisionCommunicator.jar">
+      <element id="module-output" name="VisionCommunicator" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/src.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.graphics.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
