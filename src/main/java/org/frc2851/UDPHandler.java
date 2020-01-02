@@ -15,8 +15,7 @@ public class UDPHandler implements Runnable
     private byte[] mBuffer = new byte[mBufferSize];
     private String mMessage = "";
 
-    private DatagramSocket mServerSocket;
-    private DatagramSocket mSendingSocket;
+    private DatagramSocket mSocket;
 
     public UDPHandler(String hostIP, int sendPort, int receivePort)
     {
@@ -26,8 +25,7 @@ public class UDPHandler implements Runnable
 
         try
         {
-            mServerSocket = new DatagramSocket(new InetSocketAddress(mReceivePort));
-            mSendingSocket = new DatagramSocket();
+            mSocket = new DatagramSocket(new InetSocketAddress(mReceivePort));
         } catch (java.net.SocketException e)
         {
             System.out.println("Failed to instantiate server socket");
@@ -46,7 +44,7 @@ public class UDPHandler implements Runnable
             try
             {
                 DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
-                mServerSocket.receive(mPacket);
+                mSocket.receive(mPacket);
                 mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
             } catch (IOException e)
             {
@@ -61,7 +59,7 @@ public class UDPHandler implements Runnable
     {
         try
         {
-            mSendingSocket.send(new DatagramPacket(message.getBytes(), message.length(), InetAddress.getByName(mHostIP), mSendPort));
+            mSocket.send(new DatagramPacket(message.getBytes(), message.length(), InetAddress.getByName(mHostIP), mSendPort));
         } catch (IOException e)
         {
             System.out.println("Failed to send message");
