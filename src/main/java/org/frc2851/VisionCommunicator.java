@@ -25,6 +25,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class VisionCommunicator extends Application
 {
@@ -370,7 +371,7 @@ public class VisionCommunicator extends Application
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         Yaml yaml = new Yaml(dumperOptions);
 
-        return yaml.dump(configs);
+        return yaml.dump(configs).replaceAll(Pattern.quote("'"), "");
     }
 
     private Button getDefaultButton(String text)
