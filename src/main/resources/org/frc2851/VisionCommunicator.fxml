@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <TabPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
          prefHeight="700.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.172-ea"
-         xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.frc2851.Main">
+         xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.frc2851.VisionCommunicator">
     <Tab closable="false" text="GENERAL">
         <SplitPane fx:id="generalSplitPane" disable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
             <AnchorPane prefHeight="603.0" prefWidth="500.0">

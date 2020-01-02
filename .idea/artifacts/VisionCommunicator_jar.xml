@@ -2,16 +2,18 @@
   <artifact type="jar" name="VisionCommunicator:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/VisionCommunicator_jar</output-path>
     <root id="archive" name="VisionCommunicator.jar">
-      <element id="module-output" name="VisionCommunicator" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/src.zip" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx-swt.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.web.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.base.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.fxml.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.media.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.swing.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.controls.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../Libraries/javafx-sdk-11.0.2-linux/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="VisionCommunicator.main" />
+      <element id="library" level="project" name="Gradle: org.yaml:snakeyaml:1.25" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-fxml:win:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-controls:win:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-controls:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-graphics:win:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-graphics:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-base:win:11" />
+      <element id="library" level="project" name="Gradle: org.openjfx:javafx-base:11" />
     </root>
   </artifact>
 </component>
