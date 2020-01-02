@@ -125,7 +125,7 @@ public class VisionCommunicator extends Application
 
         lowHueSlider.setValue(configOnDisk.getLowHue());
         lowSaturationSlider.setValue(configOnDisk.getLowSaturation());
-        lowValueSlider.setValue(configOnDisk.getLowSaturation());
+        lowValueSlider.setValue(configOnDisk.getLowValue());
         highHueSlider.setValue(configOnDisk.getHighHue());
         highSaturationSlider.setValue(configOnDisk.getHighSaturation());
         highValueSlider.setValue(configOnDisk.getHighValue());
