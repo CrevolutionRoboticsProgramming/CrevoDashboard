@@ -90,10 +90,10 @@ public class VisionCommunicator extends Application
 
         lowHueField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "lowHue"));
         highHueField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "highHue"));
-        lowSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "lowSaturation"));
-        highSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "highSaturation"));
-        lowValueField.setOnKeyTyped(e -> fieldUpdateHelper(lowHueField, lowHueSlider, "lowValue"));
-        highValueField.setOnKeyTyped(e -> fieldUpdateHelper(highHueField, highHueSlider, "highValue"));
+        lowSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(lowSaturationField, lowSaturationSlider, "lowSaturation"));
+        highSaturationField.setOnKeyTyped(e -> fieldUpdateHelper(highSaturationField, highSaturationSlider, "highSaturation"));
+        lowValueField.setOnKeyTyped(e -> fieldUpdateHelper(lowValueField, lowValueSlider, "lowValue"));
+        highValueField.setOnKeyTyped(e -> fieldUpdateHelper(highValueField, highValueSlider, "highValue"));
 
         lowHueSlider.setOnMouseReleased(e -> sliderUpdateHelper(lowHueSlider, lowHueField, "lowHue"));
         highHueSlider.setOnMouseReleased(e -> sliderUpdateHelper(highHueSlider, highHueField, "highHue"));
@@ -348,30 +348,15 @@ public class VisionCommunicator extends Application
         try
         {
             PrintWriter writer = new PrintWriter(configPath);
-            writer.println(getThisConfigAsString());
+            writer.println(new Yaml().dumpAs(new InConfig(hostIPField.getText(), Integer.parseInt(sendPortField.getText()), Integer.parseInt(receivePortField.getText()),
+                            Integer.parseInt(lowHueField.getText()), Integer.parseInt(lowSaturationField.getText()), Integer.parseInt(lowValueField.getText()),
+                            Integer.parseInt(highHueField.getText()), Integer.parseInt(highSaturationField.getText()), Integer.parseInt(highValueField.getText())),
+                    Tag.MAP, DumperOptions.FlowStyle.BLOCK));
             writer.close();
         } catch (Exception e)
         {
             e.printStackTrace();
         }
-    }
-
-    private String getThisConfigAsString()
-    {
-        Yaml yaml = new Yaml();
-        return yaml.dumpAs(new InConfig(hostIPField.getText(), Integer.parseInt(sendPortField.getText()), Integer.parseInt(receivePortField.getText()),
-                        Integer.parseInt(lowHueField.getText()), Integer.parseInt(lowSaturationField.getText()), Integer.parseInt(lowValueField.getText()),
-                        Integer.parseInt(highHueField.getText()), Integer.parseInt(highSaturationField.getText()), Integer.parseInt(highValueField.getText())),
-                Tag.MAP, DumperOptions.FlowStyle.BLOCK);
-    }
-
-    private String getPiConfigAsString()
-    {
-        DumperOptions dumperOptions = new DumperOptions();
-        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-        Yaml yaml = new Yaml(dumperOptions);
-
-        return yaml.dump(configs).replaceAll(Pattern.quote("'"), "");
     }
 
     private Button getDefaultButton(String text)
@@ -394,9 +379,12 @@ public class VisionCommunicator extends Application
 
     private Button getTransmitDataButton()
     {
+        DumperOptions dumperOptions = new DumperOptions();
+        dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+
         Button transmitDataButton = getDefaultButton("Transmit Data");
         transmitDataButton.setOnAction(e ->
-                udpHandler.send("CONFIGS:\n" + getPiConfigAsString(), timeout));
+                udpHandler.send("CONFIGS:\n" + new Yaml(dumperOptions).dump(configs).replaceAll(Pattern.quote("'"), ""), timeout));
         return transmitDataButton;
     }
 
