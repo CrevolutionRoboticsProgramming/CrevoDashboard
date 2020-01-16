@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebView;
 import javafx.util.Duration;
@@ -73,15 +72,11 @@ public class CrevoDashboard extends CustomWidget
         sendPortField.setText(String.valueOf(mConfig.sendPort));
         receivePortField.setText(String.valueOf(mConfig.receivePort));
 
-        hostIPField.setOnKeyPressed((KeyEvent e) ->
-                tryRebind(e.getText()));
-        sendPortField.setOnKeyPressed((KeyEvent e) ->
-                tryRebind(e.getText()));
-        receivePortField.setOnKeyPressed((KeyEvent e) ->
-                tryRebind(e.getText()));
+        hostIPField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
+        sendPortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
+        receivePortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
 
-        saveSettingsButton.setOnAction((ActionEvent e) ->
-                saveSettings());
+        saveSettingsButton.setOnAction((ActionEvent e) -> saveSettings());
 
         // Sends our IP to the roboRIO every second so it can send us the control panel color
         final Timeline periodicIPSender = new Timeline(
@@ -91,13 +86,6 @@ public class CrevoDashboard extends CustomWidget
         );
         periodicIPSender.setCycleCount(Timeline.INDEFINITE);
         periodicIPSender.play();
-    }
-
-    private void tryRebind(String keyText)
-    {
-        // If Enter was pressed
-        if (keyText.contains("\r") || keyText.contains("\n"))
-            Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText()));
     }
 
     private void saveSettings()

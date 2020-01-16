@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public class VisionCommunicator extends CustomWidget
 {
     private HashMap<String, HashMap<String, Object>> mConfigs = new LinkedHashMap<>();
-    
+
     @FXML
     private TabPane root;
     @FXML
@@ -54,6 +54,11 @@ public class VisionCommunicator extends CustomWidget
     @FXML
     private Slider highValueSlider;
 
+    public VisionCommunicator()
+    {
+        super("VisionCommunicator.fxml");
+    }
+
     @FXML
     public void initialize()
     {
@@ -71,11 +76,6 @@ public class VisionCommunicator extends CustomWidget
         bind(highValueField, highValueSlider, "highValue");
 
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("CONFIGS:", this::receiveConfigs));
-    }
-    
-    public VisionCommunicator()
-    {
-        super("VisionCommunicator.fxml");
     }
 
     private void receiveConfigs(String message)
@@ -114,7 +114,7 @@ public class VisionCommunicator extends CustomWidget
                 textField.setFont(Font.font("Courier New", 15));
                 gridPane.add(textField, columnCounter, rowCounter * 2 + 1);
 
-                mConfigs.get(config.getKey()).replace(title, textField.getText());
+                textField.setOnKeyTyped((KeyEvent e) -> mConfigs.get(config.getKey()).replace(title, textField.getText()));
 
                 switch (title)
                 {
@@ -190,7 +190,7 @@ public class VisionCommunicator extends CustomWidget
 
             getTransmitDataButton().fire();
         });
-        
+
         slider.setOnMouseReleased((MouseEvent e) ->
         {
             field.setText(String.valueOf((int) slider.getValue()));
@@ -209,7 +209,7 @@ public class VisionCommunicator extends CustomWidget
             getTransmitDataButton().fire();
         });
     }
-    
+
     private void settingUpdateHelper(String setting, TextField field, Slider slider)
     {
         double newValue = 0;
