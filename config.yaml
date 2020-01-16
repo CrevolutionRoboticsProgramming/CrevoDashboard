@@ -1,10 +1,3 @@
-highHue: 206
-highSaturation: 105
-highValue: 255
 hostIP: 192.168.0.39
-lowHue: 6
-lowSaturation: 0
-lowValue: 122
 receivePort: 1182
 sendPort: 1184
-
