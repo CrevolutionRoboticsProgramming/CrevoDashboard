@@ -74,11 +74,11 @@ public class CrevoDashboard extends CustomWidget
         receivePortField.setText(String.valueOf(mConfig.receivePort));
 
         hostIPField.setOnKeyPressed((KeyEvent e) ->
-        {
-            // If Enter was pressed
-            if (e.getText().contains("\r"))
-                Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText()));
-        });
+                tryRebind(e.getText()));
+        sendPortField.setOnKeyPressed((KeyEvent e) ->
+                tryRebind(e.getText()));
+        receivePortField.setOnKeyPressed((KeyEvent e) ->
+                tryRebind(e.getText()));
 
         saveSettingsButton.setOnAction((ActionEvent e) ->
                 saveSettings());
@@ -91,6 +91,13 @@ public class CrevoDashboard extends CustomWidget
         );
         periodicIPSender.setCycleCount(Timeline.INDEFINITE);
         periodicIPSender.play();
+    }
+
+    private void tryRebind(String keyText)
+    {
+        // If Enter was pressed
+        if (keyText.contains("\r") || keyText.contains("\n"))
+            Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText()));
     }
 
     private void saveSettings()
