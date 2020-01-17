@@ -37,9 +37,11 @@ public class CrevoDashboard extends CustomWidget
     @FXML
     private Button saveSettingsButton;
     @FXML
-    private VisionCommunicator visionCommunicator;
+    private TextField customMessageField;
     @FXML
-    private WebView streamViewer;
+    private Button sendCustomMessageButton;
+    @FXML
+    private VisionCommunicator visionCommunicator;
     @FXML
     private Button refreshButton;
 
@@ -78,10 +80,12 @@ public class CrevoDashboard extends CustomWidget
 
         saveSettingsButton.setOnAction((ActionEvent e) -> saveSettings());
 
+        sendCustomMessageButton.setOnAction((ActionEvent e) -> Constants.udpHandler.sendTo(customMessageField.getText(), Constants.roboRioIP, Constants.sendPort, 0));
+
         // Sends our IP to the roboRIO every second so it can send us the control panel color
         final Timeline periodicIPSender = new Timeline(
                 new KeyFrame(Duration.ZERO, event ->
-                        Constants.udpHandler.sendTo(Constants.udpHandler.getThisIP(), Constants.roboRioIP, Constants.sendPort, 0)),
+                        Constants.udpHandler.sendTo("IP:" + Constants.udpHandler.getThisIP(), Constants.roboRioIP, Constants.sendPort, 0)),
                 new KeyFrame(Duration.millis(1000))
         );
         periodicIPSender.setCycleCount(Timeline.INDEFINITE);
