@@ -1,9 +1,5 @@
 package org.frc2851;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.*;
 import java.util.Vector;
@@ -21,24 +17,6 @@ public class UDPHandler implements Runnable
 
     public UDPHandler()
     {
-        final Timeline udpUpdater = new Timeline(
-                new KeyFrame(Duration.ZERO, event ->
-                {
-                    if (getMessage().isEmpty())
-                        return;
-
-                    for (MessageReceiver messageReceiver : mMessageReceivers)
-                    {
-                        messageReceiver.run(getMessage());
-                    }
-
-                    clearMessage();
-                }),
-                new KeyFrame(Duration.millis(100))
-        );
-        udpUpdater.setCycleCount(Timeline.INDEFINITE);
-
-        udpUpdater.play();
     }
 
     public UDPHandler(int receivePort)
@@ -60,6 +38,11 @@ public class UDPHandler implements Runnable
                 DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
                 mSocket.receive(mPacket);
                 mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
+
+                for (MessageReceiver messageReceiver : mMessageReceivers)
+                {
+                    messageReceiver.run(getMessage());
+                }
             } catch (IOException e)
             {
                 System.out.println("Could not receive message");

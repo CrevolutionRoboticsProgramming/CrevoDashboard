@@ -1,3 +1,4 @@
-hostIP: 192.168.0.39
+hostIP: 127.0.0.1
 receivePort: 1182
 sendPort: 1184
+
