@@ -25,19 +25,19 @@ public class ColorReceiver extends CustomWidget
                 text.setText(message);
                 if (message.contains("B"))
                 {
-                    rectangle.setFill(Color.valueOf("0, 255, 255"));
+                    rectangle.setFill(Color.rgb(0, 255, 255));
                 } else if (message.contains("G"))
                 {
-                    rectangle.setFill(Color.valueOf("0, 255, 0"));
+                    rectangle.setFill(Color.rgb(0, 255, 0));
                 } else if (message.contains("R"))
                 {
-                    rectangle.setFill(Color.valueOf("255, 0, 0"));
+                    rectangle.setFill(Color.rgb(255, 0, 0));
                 } else if (message.contains("Y"))
                 {
-                    rectangle.setFill(Color.valueOf("255, 255, 0"));
+                    rectangle.setFill(Color.rgb(255, 255, 0));
                 } else
                 {
-                    rectangle.setFill(Color.valueOf("100, 100, 100"));
+                    rectangle.setFill(Color.rgb(100, 100, 100));
                 }
             }
         }));
