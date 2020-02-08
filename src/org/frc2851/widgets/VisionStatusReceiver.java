@@ -18,9 +18,16 @@ public class VisionStatusReceiver extends CustomWidget
     {
         super("VisionStatusReceiver.fxml");
 
-        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("VISION-OPERATIONAL", (message) ->
+        backgroundRectangle.setFill(Paint.valueOf("GRAY"));
+
+        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("VISION-SEARCHING", (message) ->
         {
-            statusText.setText("OPERATIONAL");
+            statusText.setText("SEARCHING");
+            backgroundRectangle.setFill(Paint.valueOf("GRAY"));
+        }));
+        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("VISION-LOCKED", (message) ->
+        {
+            statusText.setText("LOCKED");
             backgroundRectangle.setFill(Paint.valueOf("GREEN"));
         }));
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("VISION-DOWN", (message) ->

@@ -6,7 +6,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Rectangle fx:id="backgroundRectangle" arcHeight="5.0" arcWidth="5.0" fill="#b2bac2" height="75.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
+        <Rectangle fx:id="backgroundRectangle" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="75.0" stroke="BLACK" strokeType="INSIDE" width="150.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="17.0" layoutX="29.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="93.0" />
         <Text layoutX="42.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vision Status" />
         <Text fx:id="statusText" layoutX="1.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNKNOWN" textAlignment="CENTER" wrappingWidth="150.0">
