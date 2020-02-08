@@ -53,8 +53,7 @@ public class CrevoDashboard extends CustomWidget
     @FXML
     public void initialize()
     {
-        String configPath = System.getProperty("user.dir") + File.separator + "config.yaml";
-        mConfigPath = configPath;
+        mConfigPath = System.getProperty("user.dir") + File.separator + "config.yaml";
 
         Yaml configYaml = new Yaml(new Constructor(Config.class));
         try

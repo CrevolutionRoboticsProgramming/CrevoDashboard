@@ -1,4 +1,4 @@
-hostIP: 127.0.0.1
+hostIP: 169.254.57.137
 receivePort: 1182
 sendPort: 1184
 
