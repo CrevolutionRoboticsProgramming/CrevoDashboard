@@ -100,6 +100,7 @@
          <children>
              <VisionStatusReceiver maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <IntakeStateReceiver maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <GearReceiver maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
           <VisionCommunicator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="500.0" HBox.hgrow="ALWAYS" />
