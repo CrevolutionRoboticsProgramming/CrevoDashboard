@@ -1,16 +1,22 @@
 package org.frc2851;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 import java.util.Vector;
 
-public class UDPHandler implements Runnable
+public class UDPHandler
 {
     private int mReceivePort;
     private int mBufferSize = 1024;
     private byte[] mBuffer = new byte[mBufferSize];
     private String mMessage = "";
-    private DatagramSocket mSocket;
+    private DatagramChannel mChannel;
     private boolean mStopFlag = false;
 
     private Vector<MessageReceiver> mMessageReceivers = new Vector<>();
@@ -21,34 +27,9 @@ public class UDPHandler implements Runnable
 
     public UDPHandler(int receivePort)
     {
-        this();
-
         mReceivePort = receivePort;
 
         bind(mReceivePort);
-    }
-
-    @Override
-    public void run()
-    {
-        while (!mStopFlag)
-        {
-            try
-            {
-                DatagramPacket mPacket = new DatagramPacket(mBuffer, mBufferSize);
-                mSocket.receive(mPacket);
-                mMessage = new String(mPacket.getData(), 0, mPacket.getLength());
-
-                for (MessageReceiver messageReceiver : mMessageReceivers)
-                {
-                    messageReceiver.run(getMessage());
-                }
-            } catch (IOException e)
-            {
-                System.out.println("Could not receive message");
-                e.printStackTrace();
-            }
-        }
     }
 
     public void addReceiver(MessageReceiver messageReceiver)
@@ -59,9 +40,14 @@ public class UDPHandler implements Runnable
     // Timeout is expressed in milliseconds; if 0, no timeout
     public void sendTo(String message, String hostIP, int sendPort, int timeout)
     {
+        ByteBuffer buffer = ByteBuffer.allocate(2048);
+        buffer.clear();
+        buffer.put(message.getBytes());
+        buffer.flip();
+
         try
         {
-            mSocket.send(new DatagramPacket(message.getBytes(), message.length(), InetAddress.getByName(hostIP), sendPort));
+            mChannel.send(buffer, new InetSocketAddress(hostIP, sendPort));
         } catch (IOException e)
         {
             System.out.println("Failed to send message");
@@ -94,21 +80,59 @@ public class UDPHandler implements Runnable
     {
         mReceivePort = receivePort;
 
-        if (mSocket != null && mSocket.isBound())
-            mSocket.close();
+        if (mChannel != null && mChannel.isConnected())
+        {
+            try
+            {
+                mChannel.disconnect();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
 
         try
         {
-            mSocket = new DatagramSocket(new InetSocketAddress(receivePort));
+            mChannel = DatagramChannel.open();
+            mChannel.socket().bind(new InetSocketAddress(receivePort));
+            mChannel.configureBlocking(false);
         } catch (SocketException e)
         {
             System.out.println("Failed to bind to port " + receivePort);
             e.printStackTrace();
             mStopFlag = true;
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
 
-        Thread thread = new Thread(this);
-        thread.start();
+        final Timeline updater = new Timeline(
+                new KeyFrame(Duration.ZERO, event ->
+                {
+                    try
+                    {
+                        ByteBuffer buffer = ByteBuffer.allocate(2048);
+                        buffer.clear();
+                        mChannel.receive(buffer);
+
+                        // The buffer is filled with a character equating to 0x0  at the end and I don't know how to escape it so it
+                        // knows which character it is. This assumes that the last character is 0x0 and uses it as a reference.
+                        mMessage = new String(buffer.array()).replaceAll(String.valueOf((char) buffer.array()[buffer.array().length - 1]), "");
+
+                        for (MessageReceiver messageReceiver : mMessageReceivers)
+                        {
+                            messageReceiver.run(getMessage());
+                        }
+                    } catch (IOException e)
+                    {
+                        System.out.println("Could not receive message");
+                        e.printStackTrace();
+                    }
+                }),
+                new KeyFrame(Duration.millis(100))
+        );
+        updater.setCycleCount(Timeline.INDEFINITE);
+        updater.play();
     }
 
     public String getMessage()
