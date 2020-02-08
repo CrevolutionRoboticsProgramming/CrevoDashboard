@@ -84,7 +84,7 @@ public class CrevoDashboard extends CustomWidget
         // Sends our IP to the roboRIO every second so it can send us the control panel color
         final Timeline periodicIPSender = new Timeline(
                 new KeyFrame(Duration.ZERO, event ->
-                        Constants.udpHandler.sendTo("IP:" + Constants.udpHandler.getThisIP(), mConfig.hostIP, Constants.sendPort, 0)),
+                        Constants.udpHandler.sendTo("IP:" + Constants.udpHandler.getThisIP(), Constants.roboRioIP, Constants.sendPort, 0)),
                 new KeyFrame(Duration.millis(1000))
         );
         periodicIPSender.setCycleCount(Timeline.INDEFINITE);
