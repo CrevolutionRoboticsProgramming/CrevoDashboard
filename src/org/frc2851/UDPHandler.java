@@ -5,7 +5,9 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.util.Vector;
@@ -119,10 +121,21 @@ public class UDPHandler
                         // knows which character it is. This assumes that the last character is 0x0 and uses it as a reference.
                         mMessage = new String(buffer.array()).replaceAll(String.valueOf((char) buffer.array()[buffer.array().length - 1]), "");
 
+                        if (getMessage().isEmpty())
+                            return;
+
+                        boolean messageHandled = false;
                         for (MessageReceiver messageReceiver : mMessageReceivers)
                         {
-                            messageReceiver.run(getMessage());
+                            if (messageReceiver.isMessageValid(getMessage()))
+                            {
+                                messageReceiver.run(getMessage());
+                                messageHandled = true;
+                            }
                         }
+
+                        if (!messageHandled)
+                            System.out.println("Received unknown command over UDP: " + getMessage());
                     } catch (IOException e)
                     {
                         System.out.println("Could not receive message");
@@ -184,10 +197,12 @@ public class UDPHandler
 
         public void run(String message)
         {
-            if (mLabel.length() <= message.length() && message.substring(0, mLabel.length()).equals(mLabel))
-            {
-                mStringConsumer.accept(message.substring(mLabel.length()));
-            }
+            mStringConsumer.accept(message.substring(mLabel.length()));
+        }
+
+        public boolean isMessageValid(String message)
+        {
+            return mLabel.length() <= message.length() && message.substring(0, mLabel.length()).equals(mLabel);
         }
     }
 }
