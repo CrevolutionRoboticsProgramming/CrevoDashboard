@@ -250,7 +250,7 @@ public class VisionCommunicator extends CustomWidget
         Button transmitDataButton = getDefaultButton("Transmit Data");
         transmitDataButton.setPrefWidth(485);
         transmitDataButton.setOnAction(e ->
-                Constants.udpHandler.sendTo("CONFIGS:\n" + new Yaml(dumperOptions).dump(mConfigs).replaceAll(Pattern.quote("'"), ""), Constants.visionClientIP, Constants.sendPort, 1000));
+                Constants.udpHandler.sendTo("CONFIGS:\n" + new Yaml(dumperOptions).dump(mConfigs).replaceAll(Pattern.quote("'"), ""), Constants.visionClientIP, Constants.sendPort, 0));
         return transmitDataButton;
     }
 
@@ -258,7 +258,7 @@ public class VisionCommunicator extends CustomWidget
     {
         Button updateValuesButton = getDefaultButton("Update Values");
         updateValuesButton.setOnAction(e ->
-                Constants.udpHandler.sendTo("get config", Constants.visionClientIP, Constants.sendPort, 1000));
+                Constants.udpHandler.sendTo("get config", Constants.visionClientIP, Constants.sendPort, 0));
         return updateValuesButton;
     }
 
