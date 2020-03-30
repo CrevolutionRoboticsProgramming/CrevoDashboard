@@ -27,33 +27,33 @@ public class VisionCommunicator extends CustomWidget
     private HashMap<String, HashMap<String, Object>> mConfigs = new LinkedHashMap<>();
 
     @FXML
-    private TabPane root;
+    private TabPane mRoot;
     @FXML
-    private SplitPane generalSplitPane;
+    private SplitPane mGeneralSplitPane;
     @FXML
-    private TextField lowHueField;
+    private TextField mLowHueField;
     @FXML
-    private TextField highHueField;
+    private TextField mHighHueField;
     @FXML
-    private TextField lowSaturationField;
+    private TextField mLowSaturationField;
     @FXML
-    private TextField highSaturationField;
+    private TextField mHighSaturationField;
     @FXML
-    private TextField lowValueField;
+    private TextField mLowValueField;
     @FXML
-    private TextField highValueField;
+    private TextField mHighValueField;
     @FXML
-    private Slider lowHueSlider;
+    private Slider mLowHueSlider;
     @FXML
-    private Slider highHueSlider;
+    private Slider mHighHueSlider;
     @FXML
-    private Slider lowSaturationSlider;
+    private Slider mLowSaturationSlider;
     @FXML
-    private Slider highSaturationSlider;
+    private Slider mHighSaturationSlider;
     @FXML
-    private Slider lowValueSlider;
+    private Slider mLowValueSlider;
     @FXML
-    private Slider highValueSlider;
+    private Slider mHighValueSlider;
 
     public VisionCommunicator()
     {
@@ -63,18 +63,18 @@ public class VisionCommunicator extends CustomWidget
     @FXML
     public void initialize()
     {
-        generalSplitPane.getItems().add(getAnchorPaneWithButtons());
+        mGeneralSplitPane.getItems().add(getAnchorPaneWithButtons());
 
-        double oldGeneralPaneDividerPosition = generalSplitPane.getDividers().get(0).getPosition();
-        generalSplitPane.getDividers().get(0).positionProperty()
-                .addListener((observable, oldValue, newValue) -> generalSplitPane.getDividers().get(0).setPosition(oldGeneralPaneDividerPosition));
+        double oldGeneralPaneDividerPosition = mGeneralSplitPane.getDividers().get(0).getPosition();
+        mGeneralSplitPane.getDividers().get(0).positionProperty()
+                .addListener((observable, oldValue, newValue) -> mGeneralSplitPane.getDividers().get(0).setPosition(oldGeneralPaneDividerPosition));
 
-        bind(lowHueField, lowHueSlider, "lowHue");
-        bind(highHueField, highHueSlider, "highHue");
-        bind(lowSaturationField, lowSaturationSlider, "lowSaturation");
-        bind(highSaturationField, highSaturationSlider, "highSaturation");
-        bind(lowValueField, lowValueSlider, "lowValue");
-        bind(highValueField, highValueSlider, "highValue");
+        bind(mLowHueField, mLowHueSlider, "lowHue");
+        bind(mHighHueField, mHighHueSlider, "highHue");
+        bind(mLowSaturationField, mLowSaturationSlider, "lowSaturation");
+        bind(mHighSaturationField, mHighSaturationSlider, "highSaturation");
+        bind(mLowValueField, mLowValueSlider, "lowValue");
+        bind(mHighValueField, mHighValueSlider, "highValue");
 
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("CONFIGS:", this::receiveConfigs));
     }
@@ -88,9 +88,9 @@ public class VisionCommunicator extends CustomWidget
         for (Map.Entry<String, Object> pair : configMap.entrySet())
             mConfigs.put(pair.getKey(), (HashMap<String, Object>) pair.getValue());
 
-        Tab generalTab = root.getTabs().get(0);
-        root.getTabs().clear();
-        root.getTabs().add(generalTab);
+        Tab generalTab = mRoot.getTabs().get(0);
+        mRoot.getTabs().clear();
+        mRoot.getTabs().add(generalTab);
 
         for (Map.Entry<String, HashMap<String, Object>> config : mConfigs.entrySet())
         {
@@ -120,28 +120,28 @@ public class VisionCommunicator extends CustomWidget
                 switch (title)
                 {
                     case "lowHue":
-                        lowHueField.setText(textField.getText());
-                        lowHueSlider.setValue(Double.parseDouble(textField.getText()));
+                        mLowHueField.setText(textField.getText());
+                        mLowHueSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                     case "lowSaturation":
-                        lowSaturationField.setText(textField.getText());
-                        lowSaturationSlider.setValue(Double.parseDouble(textField.getText()));
+                        mLowSaturationField.setText(textField.getText());
+                        mLowSaturationSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                     case "lowValue":
-                        lowValueField.setText(textField.getText());
-                        lowValueSlider.setValue(Double.parseDouble(textField.getText()));
+                        mLowValueField.setText(textField.getText());
+                        mLowValueSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                     case "highHue":
-                        highHueField.setText(textField.getText());
-                        highHueSlider.setValue(Double.parseDouble(textField.getText()));
+                        mHighHueField.setText(textField.getText());
+                        mHighHueSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                     case "highSaturation":
-                        highSaturationField.setText(textField.getText());
-                        highSaturationSlider.setValue(Double.parseDouble(textField.getText()));
+                        mHighSaturationField.setText(textField.getText());
+                        mHighSaturationSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                     case "highValue":
-                        highValueField.setText(textField.getText());
-                        highValueSlider.setValue(Double.parseDouble(textField.getText()));
+                        mHighValueField.setText(textField.getText());
+                        mHighValueSlider.setValue(Double.parseDouble(textField.getText()));
                         break;
                 }
 
@@ -165,7 +165,7 @@ public class VisionCommunicator extends CustomWidget
 
             tab.setContent(splitPane);
             tab.setClosable(false);
-            root.getTabs().add(tab);
+            mRoot.getTabs().add(tab);
         }
     }
 

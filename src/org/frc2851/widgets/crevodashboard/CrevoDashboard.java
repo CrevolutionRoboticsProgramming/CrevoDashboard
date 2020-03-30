@@ -28,23 +28,23 @@ public class CrevoDashboard extends CustomWidget
     private String mConfigPath;
 
     @FXML
-    private HBox root;
+    private HBox mRoot;
     @FXML
-    private TextField hostIPField;
+    private TextField mHostIPField;
     @FXML
-    private TextField sendPortField;
+    private TextField mSendPortField;
     @FXML
-    private TextField receivePortField;
+    private TextField mReceivePortField;
     @FXML
-    private Button saveSettingsButton;
+    private Button mSaveSettingsButton;
     @FXML
-    private TextField customMessageField;
+    private TextField mCustomMessageField;
     @FXML
-    private Button sendCustomMessageButton;
+    private Button mSendCustomMessageButton;
     @FXML
-    private VisionCommunicator visionCommunicator;
+    private VisionCommunicator mVisionCommunicator;
     @FXML
-    private Button refreshButton;
+    private Button mRefreshButton;
 
     public CrevoDashboard()
     {
@@ -70,17 +70,17 @@ public class CrevoDashboard extends CustomWidget
         Constants.sendPort = mConfig.sendPort;
         Constants.udpHandler.bind(mConfig.receivePort);
 
-        hostIPField.setText(mConfig.hostIP);
-        sendPortField.setText(String.valueOf(mConfig.sendPort));
-        receivePortField.setText(String.valueOf(mConfig.receivePort));
+        mHostIPField.setText(mConfig.hostIP);
+        mSendPortField.setText(String.valueOf(mConfig.sendPort));
+        mReceivePortField.setText(String.valueOf(mConfig.receivePort));
 
-        hostIPField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
-        sendPortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
-        receivePortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(receivePortField.getText())));
+        mHostIPField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(mReceivePortField.getText())));
+        mSendPortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(mReceivePortField.getText())));
+        mReceivePortField.setOnAction((ActionEvent e) -> Constants.udpHandler.bind(Integer.parseInt(mReceivePortField.getText())));
 
-        saveSettingsButton.setOnAction((ActionEvent e) -> saveSettings());
+        mSaveSettingsButton.setOnAction((ActionEvent e) -> saveSettings());
 
-        sendCustomMessageButton.setOnAction((ActionEvent e) -> Constants.udpHandler.sendTo(customMessageField.getText(), mConfig.hostIP, Constants.sendPort, 0));
+        mSendCustomMessageButton.setOnAction((ActionEvent e) -> Constants.udpHandler.sendTo(mCustomMessageField.getText(), mConfig.hostIP, Constants.sendPort, 0));
 
         // Sends our IP to the roboRIO every second so it can send us the control panel color
         final Timeline periodicIPSender = new Timeline(
@@ -97,7 +97,7 @@ public class CrevoDashboard extends CustomWidget
         try
         {
             PrintWriter writer = new PrintWriter(mConfigPath);
-            writer.println(new Yaml().dumpAs(new Config(hostIPField.getText(), Integer.parseInt(sendPortField.getText()), Integer.parseInt(receivePortField.getText())),
+            writer.println(new Yaml().dumpAs(new Config(mHostIPField.getText(), Integer.parseInt(mSendPortField.getText()), Integer.parseInt(mReceivePortField.getText())),
                     Tag.MAP, DumperOptions.FlowStyle.BLOCK));
             writer.close();
         } catch (Exception e)

@@ -9,15 +9,15 @@ import org.frc2851.widgets.CustomWidget;
 public class GearReceiver extends CustomWidget
 {
     @FXML
-    private Text text;
+    private Text mText;
 
     public GearReceiver()
     {
         super("GearReceiver.fxml");
 
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("GEAR-HIGH", (message) ->
-                text.setText("HIGH")));
+                mText.setText("HIGH")));
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("GEAR-LOW", (message) ->
-                text.setText("LOW")));
+                mText.setText("LOW")));
     }
 }

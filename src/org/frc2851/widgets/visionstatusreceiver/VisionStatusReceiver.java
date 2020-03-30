@@ -14,9 +14,9 @@ import org.frc2851.widgets.CustomWidget;
 public class VisionStatusReceiver extends CustomWidget
 {
     @FXML
-    Rectangle backgroundRectangle;
+    Rectangle mBackgroundRectangle;
     @FXML
-    Text statusText;
+    Text mStatusText;
 
     private long mLast = System.currentTimeMillis();
 
@@ -57,19 +57,19 @@ public class VisionStatusReceiver extends CustomWidget
 
     private void setSearching()
     {
-        statusText.setText("SEARCHING");
-        backgroundRectangle.setFill(Paint.valueOf("GRAY"));
+        mStatusText.setText("SEARCHING");
+        mBackgroundRectangle.setFill(Paint.valueOf("GRAY"));
     }
 
     private void setLocked()
     {
-        statusText.setText("LOCKED");
-        backgroundRectangle.setFill(Paint.valueOf("GREEN"));
+        mStatusText.setText("LOCKED");
+        mBackgroundRectangle.setFill(Paint.valueOf("GREEN"));
     }
 
     private void setDown()
     {
-        statusText.setText("DOWN");
-        backgroundRectangle.setFill(Paint.valueOf("RED"));
+        mStatusText.setText("DOWN");
+        mBackgroundRectangle.setFill(Paint.valueOf("RED"));
     }
 }

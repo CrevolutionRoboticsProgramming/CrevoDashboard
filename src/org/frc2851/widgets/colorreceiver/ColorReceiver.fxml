@@ -7,9 +7,9 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0"
       prefWidth="225.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="109.0" layoutX="13.0"
+        <Rectangle fx:id="mRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="109.0" layoutX="13.0"
                    layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0"/>
-        <Text fx:id="text" layoutX="110.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0">
+        <Text fx:id="mText" layoutX="110.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0">
             <font>
                 <Font size="22.0"/>
             </font>

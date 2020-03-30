@@ -4,11 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<TabPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<TabPane fx:id="mRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
          prefHeight="525.0" prefWidth="500.0" tabClosingPolicy="UNAVAILABLE"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <Tab closable="false" text="GENERAL">
-        <SplitPane fx:id="generalSplitPane" disable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+        <SplitPane fx:id="mGeneralSplitPane" disable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
             <AnchorPane prefHeight="603.0" prefWidth="500.0">
                 <GridPane hgap="10.0" layoutX="10.0" layoutY="10.0" prefHeight="640.0" prefWidth="490.0"
                           AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0"
@@ -39,7 +39,7 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="lowHueField" GridPane.rowIndex="1">
+                    <TextField fx:id="mLowHueField" GridPane.rowIndex="1">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
@@ -50,7 +50,7 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="highHueField" layoutX="20.0" layoutY="273.0" GridPane.rowIndex="3">
+                    <TextField fx:id="mHighHueField" layoutX="20.0" layoutY="273.0" GridPane.rowIndex="3">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
@@ -61,7 +61,7 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="lowSaturationField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="5">
+                    <TextField fx:id="mLowSaturationField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="5">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
@@ -72,7 +72,7 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="highSaturationField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="7">
+                    <TextField fx:id="mHighSaturationField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="7">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
@@ -83,7 +83,7 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="lowValueField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="9">
+                    <TextField fx:id="mLowValueField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="9">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
@@ -94,22 +94,22 @@
                             <Font name="Roboto Bold" size="15.0"/>
                         </font>
                     </Text>
-                    <TextField fx:id="highValueField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="11">
+                    <TextField fx:id="mHighValueField" layoutX="20.0" layoutY="21.0" GridPane.rowIndex="11">
                         <font>
                             <Font name="Courier New" size="15.0"/>
                         </font>
                     </TextField>
-                    <Slider fx:id="lowHueSlider" majorTickUnit="85.0" max="255.0" minorTickCount="0"
+                    <Slider fx:id="mLowHueSlider" majorTickUnit="85.0" max="255.0" minorTickCount="0"
                             showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                    <Slider fx:id="highHueSlider" layoutX="256.0" layoutY="219.0" majorTickUnit="85.0" max="255.0"
+                    <Slider fx:id="mHighHueSlider" layoutX="256.0" layoutY="219.0" majorTickUnit="85.0" max="255.0"
                             minorTickCount="0" showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                    <Slider fx:id="lowSaturationSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
+                    <Slider fx:id="mLowSaturationSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
                             minorTickCount="0" showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                    <Slider fx:id="highSaturationSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
+                    <Slider fx:id="mHighSaturationSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
                             minorTickCount="0" showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                    <Slider fx:id="lowValueSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
+                    <Slider fx:id="mLowValueSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
                             minorTickCount="0" showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                    <Slider fx:id="highValueSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
+                    <Slider fx:id="mHighValueSlider" layoutX="20.0" layoutY="20.0" majorTickUnit="85.0" max="255.0"
                             minorTickCount="0" showTickLabels="true" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
                 </GridPane>
             </AnchorPane>

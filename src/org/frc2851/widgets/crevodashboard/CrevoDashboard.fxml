@@ -28,22 +28,22 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="hostIPField" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                        <TextField fx:id="mHostIPField" GridPane.columnSpan="2" GridPane.rowIndex="1">
                             <font>
                                 <Font name="Courier New" size="12.0"/>
                             </font>
                         </TextField>
-                        <TextField fx:id="sendPortField" GridPane.rowIndex="3">
+                        <TextField fx:id="mSendPortField" GridPane.rowIndex="3">
                             <font>
                                 <Font name="Courier New" size="12.0"/>
                             </font>
                         </TextField>
-                        <TextField fx:id="receivePortField" GridPane.rowIndex="5">
+                        <TextField fx:id="mReceivePortField" GridPane.rowIndex="5">
                             <font>
                                 <Font name="Courier New" size="12.0"/>
                             </font>
                         </TextField>
-                        <Text fx:id="hostIPText" strokeType="OUTSIDE" strokeWidth="0.0" text="Host IP">
+                        <Text fx:id="mHostIPText" strokeType="OUTSIDE" strokeWidth="0.0" text="Host IP">
                             <font>
                                 <Font size="15.0"/>
                             </font>
@@ -62,7 +62,7 @@
                         </Text>
                     </children>
                 </GridPane>
-                <Button fx:id="saveSettingsButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0"
+                <Button fx:id="mSaveSettingsButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0"
                         text="Save Settings">
                     <font>
                         <Font size="15.0"/>
@@ -84,8 +84,8 @@
                                 <Font size="15.0"/>
                             </font>
                         </Text>
-                        <TextField fx:id="customMessageField" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
-                        <Button fx:id="sendCustomMessageButton" mnemonicParsing="false" prefHeight="31.0"
+                        <TextField fx:id="mCustomMessageField" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
+                        <Button fx:id="mSendCustomMessageButton" mnemonicParsing="false" prefHeight="31.0"
                                 prefWidth="237.0" text="Send Message" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
                                 <Font size="15.0"/>

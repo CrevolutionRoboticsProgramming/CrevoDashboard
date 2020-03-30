@@ -11,9 +11,9 @@ import org.frc2851.widgets.CustomWidget;
 public class ColorReceiver extends CustomWidget
 {
     @FXML
-    private Rectangle rectangle;
+    private Rectangle mRectangle;
     @FXML
-    private Text text;
+    private Text mText;
 
     public ColorReceiver()
     {
@@ -23,22 +23,22 @@ public class ColorReceiver extends CustomWidget
         {
             if (message.length() > 0)
             {
-                text.setText(message);
+                mText.setText(message);
                 if (message.contains("B"))
                 {
-                    rectangle.setFill(Color.rgb(0, 255, 255));
+                    mRectangle.setFill(Color.rgb(0, 255, 255));
                 } else if (message.contains("G"))
                 {
-                    rectangle.setFill(Color.rgb(0, 255, 0));
+                    mRectangle.setFill(Color.rgb(0, 255, 0));
                 } else if (message.contains("R"))
                 {
-                    rectangle.setFill(Color.rgb(255, 0, 0));
+                    mRectangle.setFill(Color.rgb(255, 0, 0));
                 } else if (message.contains("Y"))
                 {
-                    rectangle.setFill(Color.rgb(255, 255, 0));
+                    mRectangle.setFill(Color.rgb(255, 255, 0));
                 } else
                 {
-                    rectangle.setFill(Color.rgb(100, 100, 100));
+                    mRectangle.setFill(Color.rgb(100, 100, 100));
                 }
             }
         }));
