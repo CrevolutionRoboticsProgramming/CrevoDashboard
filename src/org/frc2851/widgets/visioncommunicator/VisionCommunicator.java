@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -238,7 +239,7 @@ public class VisionCommunicator extends CustomWidget
         Button button = new Button(text);
         button.setMnemonicParsing(false);
         button.setPrefHeight(0);
-        button.setPrefWidth(240);
+        button.setPrefWidth(mRoot.getPrefWidth() / 2 - 10);
         button.setFont(Font.font("System", 15));
         return button;
     }
@@ -249,7 +250,7 @@ public class VisionCommunicator extends CustomWidget
         dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
 
         Button transmitDataButton = getDefaultButton("Transmit Data");
-        transmitDataButton.setPrefWidth(485);
+        transmitDataButton.setPrefWidth(mRoot.getPrefWidth() - 5);
         transmitDataButton.setOnAction(e ->
                 Constants.udpHandler.sendTo("CONFIGS:\n" + new Yaml(dumperOptions).dump(mConfigs).replaceAll(Pattern.quote("'"), ""), Constants.visionClientIP, Constants.sendPort, 0));
         return transmitDataButton;
@@ -299,9 +300,12 @@ public class VisionCommunicator extends CustomWidget
         gridPane.setPadding(new Insets(5, 5, 5, 5));
         gridPane.setHgap(5);
         gridPane.setVgap(5);
+        gridPane.getColumnConstraints().add(0, new ColumnConstraints(mRoot.getPrefWidth() / 2));
+        gridPane.getColumnConstraints().add(1, new ColumnConstraints(mRoot.getPrefWidth() / 2));
 
         AnchorPane anchorPane = new AnchorPane(gridPane);
-        anchorPane.setMaxSize(0, 0);
+        anchorPane.setMaxHeight(0);
+        //anchorPane.setMaxSize(0, 0);
 
         return anchorPane;
     }
