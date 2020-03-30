@@ -5,9 +5,7 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.util.Vector;
@@ -29,6 +27,8 @@ public class UDPHandler
 
     public UDPHandler(int receivePort)
     {
+        this();
+
         mReceivePort = receivePort;
 
         bind(mReceivePort);
@@ -52,7 +52,7 @@ public class UDPHandler
             mChannel.send(buffer, new InetSocketAddress(hostIP, sendPort));
         } catch (IOException e)
         {
-            System.out.println("Failed to send message");
+            System.out.println("Failed to send message " + message + " to " + hostIP + ":" + sendPort);
             e.printStackTrace();
         }
 
@@ -76,6 +76,11 @@ public class UDPHandler
                 System.out.println("Timed out waiting for target to send confirmation of reception");
             }
         }
+    }
+
+    public void sendTo(String message, String hostIP, int sendPort)
+    {
+        sendTo(message, hostIP, sendPort, 0);
     }
 
     public void bind(int receivePort)
@@ -124,25 +129,17 @@ public class UDPHandler
                         if (getMessage().isEmpty())
                             return;
 
-                        boolean messageHandled = false;
                         for (MessageReceiver messageReceiver : mMessageReceivers)
                         {
-                            if (messageReceiver.isMessageValid(getMessage()))
-                            {
-                                messageReceiver.run(getMessage());
-                                messageHandled = true;
-                            }
+                            messageReceiver.run(getMessage());
                         }
-
-                        if (!messageHandled)
-                            System.out.println("Received unknown command over UDP: " + getMessage());
                     } catch (IOException e)
                     {
                         System.out.println("Could not receive message");
                         e.printStackTrace();
                     }
                 }),
-                new KeyFrame(Duration.millis(100))
+                new KeyFrame(Duration.millis(10))
         );
         updater.setCycleCount(Timeline.INDEFINITE);
         updater.play();
@@ -165,7 +162,7 @@ public class UDPHandler
         try
         {
             returnString = InetAddress.getLocalHost().getHostAddress();
-        } catch (java.net.UnknownHostException e)
+        } catch (UnknownHostException e)
         {
             System.out.println("Cannot get this IP");
             e.printStackTrace();
@@ -197,12 +194,10 @@ public class UDPHandler
 
         public void run(String message)
         {
-            mStringConsumer.accept(message.substring(mLabel.length()));
-        }
-
-        public boolean isMessageValid(String message)
-        {
-            return mLabel.length() <= message.length() && message.substring(0, mLabel.length()).equals(mLabel);
+            if (mLabel.length() <= message.length() && message.substring(0, mLabel.length()).equals(mLabel))
+            {
+                mStringConsumer.accept(message.substring(mLabel.length()));
+            }
         }
     }
 }
