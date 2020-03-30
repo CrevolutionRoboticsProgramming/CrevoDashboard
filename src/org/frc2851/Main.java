@@ -3,7 +3,7 @@ package org.frc2851;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.frc2851.widgets.CrevoDashboard;
+import org.frc2851.widgets.crevodashboard.CrevoDashboard;
 
 public class Main extends Application
 {

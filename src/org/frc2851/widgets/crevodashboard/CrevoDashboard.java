@@ -1,4 +1,4 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.crevodashboard;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -7,10 +7,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import javafx.scene.web.WebView;
 import javafx.util.Duration;
 import org.frc2851.Config;
 import org.frc2851.Constants;
+import org.frc2851.widgets.CustomWidget;
+import org.frc2851.widgets.visioncommunicator.VisionCommunicator;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;

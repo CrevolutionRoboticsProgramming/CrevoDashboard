@@ -1,4 +1,4 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.colorreceiver;
 
 import javafx.fxml.FXML;
 import javafx.scene.paint.Color;
@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
+import org.frc2851.widgets.CustomWidget;
 
 public class ColorReceiver extends CustomWidget
 {

@@ -7,8 +7,9 @@ public class Config
     public int receivePort;
 
     public Config()
-    {}
-    
+    {
+    }
+
     public Config(String hostIP, int sendPort, int receivePort)
     {
         this.hostIP = hostIP;

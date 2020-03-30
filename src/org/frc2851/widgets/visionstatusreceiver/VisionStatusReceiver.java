@@ -1,4 +1,4 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.visionstatusreceiver;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
+import org.frc2851.widgets.CustomWidget;
 
 public class VisionStatusReceiver extends CustomWidget
 {

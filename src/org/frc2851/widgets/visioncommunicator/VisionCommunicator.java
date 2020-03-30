@@ -1,4 +1,4 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.visioncommunicator;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -13,6 +13,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
+import org.frc2851.widgets.CustomWidget;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 

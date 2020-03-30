@@ -1,10 +1,11 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.intakestatereceiver;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
+import org.frc2851.widgets.CustomWidget;
 
 public class IntakeStateReceiver extends CustomWidget
 {
@@ -17,9 +18,9 @@ public class IntakeStateReceiver extends CustomWidget
 
         imageView.setImage(new Image(getClass().getResourceAsStream("IntakeRetracted.png")));
 
-        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("INTAKE-EXTENDED", (message) ->
+        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("INTAKE-EXTEND", (message) ->
                 imageView.setImage(new Image(getClass().getResourceAsStream("IntakeExtended.png")))));
-        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("INTAKE-RETRACTED", (message) ->
+        Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("INTAKE-RETRACT", (message) ->
                 imageView.setImage(new Image(getClass().getResourceAsStream("IntakeRetracted.png")))));
     }
 }

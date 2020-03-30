@@ -1,9 +1,10 @@
-package org.frc2851.widgets;
+package org.frc2851.widgets.gearreceiver;
 
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
+import org.frc2851.widgets.CustomWidget;
 
 public class GearReceiver extends CustomWidget
 {
