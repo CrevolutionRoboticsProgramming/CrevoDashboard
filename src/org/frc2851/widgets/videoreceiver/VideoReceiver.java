@@ -2,6 +2,7 @@ package org.frc2851.widgets.videoreceiver;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -128,7 +129,7 @@ public class VideoReceiver extends CustomWidget
                             offset += numRead;
                         }
 
-                        mRetrievedFrame = convertToFxImage(ImageIO.read(new ByteArrayInputStream(imageBytes)));
+                        mRetrievedFrame = SwingFXUtils.toFXImage(ImageIO.read(new ByteArrayInputStream(imageBytes)), null);
 
                         ++mFramesRetrievedSinceLastFpsGrab;
 
@@ -193,24 +194,5 @@ public class VideoReceiver extends CustomWidget
             return Integer.parseInt(header.substring(lengthStartPosition, indexOfEoL).trim());
         else
             return 0;
-    }
-
-    private Image convertToFxImage(BufferedImage image)
-    {
-        WritableImage wr = null;
-        if (image != null)
-        {
-            wr = new WritableImage(image.getWidth(), image.getHeight());
-            PixelWriter pw = wr.getPixelWriter();
-            for (int x = 0; x < image.getWidth(); x++)
-            {
-                for (int y = 0; y < image.getHeight(); y++)
-                {
-                    pw.setArgb(x, y, image.getRGB(x, y));
-                }
-            }
-        }
-
-        return new ImageView(wr).getImage();
     }
 }
