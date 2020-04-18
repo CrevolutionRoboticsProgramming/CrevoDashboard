@@ -11,7 +11,7 @@
 <?import org.frc2851.widgets.visioncommunicator.*?>
 <?import org.frc2851.widgets.visionstatusreceiver.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="1463.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="1463.0" style="-fx-background-color: #25272a;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox prefHeight="490.0" prefWidth="230.0" spacing="20.0" HBox.hgrow="NEVER">
             <children>
@@ -44,26 +44,26 @@
                                 <Font name="Courier New" size="12.0" />
                             </font>
                         </TextField>
-                        <Text fx:id="mHostIPText" strokeType="OUTSIDE" strokeWidth="0.0" text="Host IP">
+                        <Text fx:id="mHostIPText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Host IP">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Courier New" size="15.0" />
                             </font>
                         </Text>
-                        <Text layoutX="10.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Send Port" GridPane.rowIndex="2">
+                        <Text fill="WHITE" layoutX="10.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Send Port" GridPane.rowIndex="2">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Courier New" size="15.0" />
                             </font>
                         </Text>
-                        <Text layoutX="10.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receive Port" GridPane.rowIndex="4">
+                        <Text fill="WHITE" layoutX="10.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receive Port" GridPane.rowIndex="4">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Courier New" size="15.0" />
                             </font>
                         </Text>
                     </children>
                 </GridPane>
-                <Button fx:id="mSaveSettingsButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0" text="Save Settings">
+                <Button fx:id="mSaveSettingsButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0" style="-fx-background-color: #595e66; -fx-border-color: WHITE;" text="Save Settings" textFill="WHITE">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="Courier New" size="15.0" />
                     </font>
                 </Button>
                 <GridPane>
@@ -77,15 +77,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Message">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Custom Message">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Courier New" size="15.0" />
                             </font>
                         </Text>
                         <TextField fx:id="mCustomMessageField" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                        <Button fx:id="mSendCustomMessageButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0" text="Send Message" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Button fx:id="mSendCustomMessageButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="237.0" style="-fx-background-color: #595e66; -fx-border-color: WHITE;" text="Send Message" textFill="WHITE" GridPane.columnSpan="2" GridPane.rowIndex="2">
                             <font>
-                                <Font size="15.0" />
+                                <Font name="Courier New" size="15.0" />
                             </font>
                         </Button>
                     </children>

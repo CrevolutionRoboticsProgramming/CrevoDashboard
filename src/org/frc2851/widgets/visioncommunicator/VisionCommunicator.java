@@ -6,9 +6,8 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -240,7 +239,10 @@ public class VisionCommunicator extends CustomWidget
         button.setMnemonicParsing(false);
         button.setPrefHeight(0);
         button.setPrefWidth(mRoot.getPrefWidth() / 2 - 10);
-        button.setFont(Font.font("System", 15));
+        button.setFont(Font.font("Courier New", 15));
+        button.setBackground(new Background(new BackgroundFill(Paint.valueOf("#595e66"), new CornerRadii(0), new Insets(0))));
+        button.setBorder(new Border(new BorderStroke(Paint.valueOf("WHITE"), BorderStrokeStyle.SOLID, new CornerRadii(0), new BorderWidths(1))));
+        button.setStyle("-fx-text-fill: WHITE;");
         return button;
     }
 

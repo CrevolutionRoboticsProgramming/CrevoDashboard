@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -175,12 +176,16 @@ public class VideoReceiver extends CustomWidget
         {
             URLConnection mUrlConnection = new URL(url).openConnection();
             mUrlConnection.setReadTimeout(1000);
+            mUrlConnection.setConnectTimeout(1000);
             mUrlConnection.connect();
             mVideoStream = mUrlConnection.getInputStream();
             mIsRunning = true;
         } catch (ConnectException e)
         {
             System.out.println("Connection to " + url + " was refused");
+        } catch (SocketTimeoutException e)
+        {
+            System.out.println("Connection to " + url + " timed out");
         }
     }
 

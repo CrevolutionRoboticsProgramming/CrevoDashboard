@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0"
-      prefWidth="150.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="150.0" style="-fx-background-color: #25272a;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text layoutX="48.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gear State"/>
-        <Text fx:id="mText" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HIGH" textAlignment="CENTER"
-              wrappingWidth="150.0">
+        <Text fill="WHITE" layoutX="48.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gear State" />
+        <Text fx:id="mText" fill="WHITE" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HIGH" textAlignment="CENTER" wrappingWidth="150.0">
             <font>
-                <Font size="30.0"/>
+                <Font size="30.0" />
             </font>
         </Text>
     </children>

@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0"
-      prefWidth="225.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="225.0" style="-fx-background-color: #25272a;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Rectangle fx:id="mRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="109.0" layoutX="13.0"
-                   layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0"/>
-        <Text fx:id="mText" layoutX="110.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0">
+        <Rectangle fx:id="mRectangle" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="109.0" layoutX="13.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+        <Text fx:id="mText" fill="WHITE" layoutX="113.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
             <font>
-                <Font size="22.0"/>
+                <Font name="Courier New" size="20.0" />
             </font>
         </Text>
     </children>
