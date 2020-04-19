@@ -17,8 +17,7 @@ public class CustomWidget extends Pane
             loader.setController(this);
             getChildren().add(loader.load());
 
-            // TODO: Fix this ugly mess
-            getStylesheets().add("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/src/org/frc2851/css/DarkMode.css");
+            getStylesheets().add(getClass().getResource("../../css/DarkMode.css").toExternalForm());
         } catch (IOException e)
         {
             e.printStackTrace();
