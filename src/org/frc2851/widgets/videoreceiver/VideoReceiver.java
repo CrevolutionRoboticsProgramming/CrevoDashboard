@@ -3,21 +3,17 @@ package org.frc2851.widgets.videoreceiver;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.frc2851.Constants;
 import org.frc2851.widgets.CustomWidget;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +45,7 @@ public class VideoReceiver extends CustomWidget
     @FXML
     private TextField mUrlTextField;
     @FXML
-    private Text mFpsText;
+    private Label mFpsLabel;
     @FXML
     private Button mRefreshButton;
 
@@ -161,7 +157,7 @@ public class VideoReceiver extends CustomWidget
                 new KeyFrame(Duration.ZERO, frameDisplayerEvent ->
                 {
                     mImageView.setImage(mRetrievedFrame);
-                    mFpsText.setText("FPS: " + mFps);
+                    mFpsLabel.setText("FPS: " + mFps);
                 }),
                 new KeyFrame(Duration.millis(mFrameDisplayerDelayMs))
         );

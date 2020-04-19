@@ -3,9 +3,9 @@ package org.frc2851.widgets.visionstatusreceiver;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
@@ -16,7 +16,7 @@ public class VisionStatusReceiver extends CustomWidget
     @FXML
     Rectangle mBackgroundRectangle;
     @FXML
-    Text mStatusText;
+    Label mStatusLabel;
 
     private long mLast = System.currentTimeMillis();
 
@@ -57,19 +57,19 @@ public class VisionStatusReceiver extends CustomWidget
 
     private void setSearching()
     {
-        mStatusText.setText("SEARCHING");
+        mStatusLabel.setText("SEARCHING");
         mBackgroundRectangle.setFill(Paint.valueOf("GRAY"));
     }
 
     private void setLocked()
     {
-        mStatusText.setText("LOCKED");
+        mStatusLabel.setText("LOCKED");
         mBackgroundRectangle.setFill(Paint.valueOf("GREEN"));
     }
 
     private void setDown()
     {
-        mStatusText.setText("DOWN");
+        mStatusLabel.setText("DOWN");
         mBackgroundRectangle.setFill(Paint.valueOf("RED"));
     }
 }

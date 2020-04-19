@@ -1,7 +1,7 @@
 package org.frc2851.widgets.gearreceiver;
 
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
 import org.frc2851.widgets.CustomWidget;
@@ -9,15 +9,15 @@ import org.frc2851.widgets.CustomWidget;
 public class GearReceiver extends CustomWidget
 {
     @FXML
-    private Text mText;
+    private Label mLabel;
 
     public GearReceiver()
     {
         super("GearReceiver.fxml");
 
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("GEAR-HIGH", (message) ->
-                mText.setText("HIGH")));
+                mLabel.setText("HIGH")));
         Constants.udpHandler.addReceiver(new UDPHandler.MessageReceiver("GEAR-LOW", (message) ->
-                mText.setText("LOW")));
+                mLabel.setText("LOW")));
     }
 }

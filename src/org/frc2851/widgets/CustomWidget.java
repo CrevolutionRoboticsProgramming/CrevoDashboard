@@ -16,6 +16,9 @@ public class CustomWidget extends Pane
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fileName));
             loader.setController(this);
             getChildren().add(loader.load());
+
+            // TODO: Fix this ugly mess
+            getStylesheets().add("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/src/org/frc2851/css/DarkMode.css");
         } catch (IOException e)
         {
             e.printStackTrace();

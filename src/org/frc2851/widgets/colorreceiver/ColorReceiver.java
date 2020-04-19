@@ -1,9 +1,9 @@
 package org.frc2851.widgets.colorreceiver;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import org.frc2851.Constants;
 import org.frc2851.UDPHandler;
 import org.frc2851.widgets.CustomWidget;
@@ -13,7 +13,7 @@ public class ColorReceiver extends CustomWidget
     @FXML
     private Rectangle mRectangle;
     @FXML
-    private Text mText;
+    private Label mLabel;
 
     public ColorReceiver()
     {
@@ -23,7 +23,7 @@ public class ColorReceiver extends CustomWidget
         {
             if (message.length() > 0)
             {
-                mText.setText(message);
+                mLabel.setText(message);
                 if (message.contains("B"))
                 {
                     mRectangle.setFill(Color.rgb(0, 255, 255));

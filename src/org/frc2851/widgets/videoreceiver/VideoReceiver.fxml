@@ -6,29 +6,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="640.0" style="-fx-background-color: #25272a;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fx:id="mImageView" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" />
-      <Text fill="WHITE" layoutX="14.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL: ">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="640.0" stylesheets="@../../css/DarkMode.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="mImageView" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" />
+        <Label layoutX="8.0" layoutY="486.0" prefHeight="27.0" prefWidth="72.0" text="URL: ">
          <font>
-            <Font name="Courier New" size="16.0" />
-         </font>
-      </Text>
-      <TextField fx:id="mUrlTextField" layoutX="68.0" layoutY="487.0" prefHeight="25.0" prefWidth="462.0">
+            <Font name="Courier New" size="22.0" />
+         </font></Label>
+        <TextField fx:id="mUrlTextField" layoutX="68.0" layoutY="487.0" prefHeight="25.0" prefWidth="462.0">
          <font>
             <Font name="Courier New" size="12.0" />
          </font></TextField>
-      <Text fx:id="mFpsText" fill="WHITE" layoutX="575.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FPS: ##">
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" spread="1.0" />
-         </effect>
+        <Label fx:id="mFpsLabel" layoutX="575.0" layoutY="24.0" text="FPS: ##">
+            <effect>
+                <DropShadow blurType="ONE_PASS_BOX" spread="1.0" />
+            </effect>
          <font>
             <Font name="Courier New" size="12.0" />
-         </font></Text>
-      <Button fx:id="mRefreshButton" alignment="CENTER" layoutX="545.0" layoutY="479.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="82.0" style="-fx-background-color: #595e66; -fx-border-color: WHITE;" text="Refresh" textFill="WHITE">
+         </font>
+        </Label>
+        <Button fx:id="mRefreshButton" alignment="CENTER" layoutX="545.0" layoutY="479.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="82.0" text="Refresh" textFill="WHITE">
          <font>
             <Font name="Courier New" size="14.0" />
-         </font>
-      </Button>
-   </children>
+         </font></Button>
+    </children>
 </Pane>
