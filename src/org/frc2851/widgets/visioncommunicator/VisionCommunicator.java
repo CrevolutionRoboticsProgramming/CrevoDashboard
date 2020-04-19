@@ -107,7 +107,7 @@ public class VisionCommunicator extends CustomWidget
             for (String title : config.getValue().keySet())
             {
                 Label text = new Label(title);
-                text.setFont(Font.font("System", FontWeight.BOLD, 15));
+                text.setFont(Font.font("Courier New", FontWeight.BOLD, 15));
                 gridPane.add(text, columnCounter, rowCounter * 2);
 
                 // Populates the text field with the value of the setting (as a string) as given by the config
@@ -239,6 +239,7 @@ public class VisionCommunicator extends CustomWidget
         button.setMnemonicParsing(false);
         button.setPrefHeight(0);
         button.setPrefWidth(mRoot.getPrefWidth() / 2 - 10);
+        button.setFont(Font.font("Courier New", 14));
         return button;
     }
 
